@@ -1,0 +1,13 @@
+{
+  "name": "komi-zone",
+  "owner": {
+    "name": "komi"
+  },
+  "plugins": [
+    {
+      "name": "znote",
+      "source": "./znote",
+      "description": "Zettelkasten-integrated workflow commands for implementation planning, code review, research, and debugging"
+    }
+  ]
+}
