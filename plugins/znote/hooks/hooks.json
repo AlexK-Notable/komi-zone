@@ -1,0 +1,17 @@
+{
+  "description": "Injects agent catalog into context when znote commands are invoked",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/inject-agent-catalog.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

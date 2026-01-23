@@ -148,6 +148,7 @@ komi-zone/                              # Marketplace root
 │       ├── agent-catalog.md            # Agent selection guide
 │       ├── agents/                     # 14 specialized agents
 │       ├── commands/                   # 4 slash commands
+│       ├── hooks/                      # Auto-injects catalog on command use
 │       └── mcp-servers/znote-mcp/      # Submodule
 └── README.md
 ```
