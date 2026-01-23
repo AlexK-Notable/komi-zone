@@ -14,67 +14,37 @@ A Claude Code plugin marketplace with zettelkasten workflows, specialized agents
 
 - [Claude Code](https://claude.ai/claude-code) installed
 - [uv](https://github.com/astral-sh/uv) (Python package manager) - for MCP servers
-- Git
 
-### Step 1: Clone the Repository
+### Quick Install
 
 ```bash
-git clone --recursive https://github.com/YOUR_USERNAME/komi-zone.git ~/repos/komi-zone
+# Add the marketplace
+claude plugin marketplace add https://github.com/YOUR_USERNAME/komi-zone
 
-# If you forgot --recursive:
-cd ~/repos/komi-zone && git submodule update --init --recursive
+# Install the znote plugin
+claude plugin install znote@komi-zone
 ```
 
-### Step 2: Register the Marketplace
+Restart Claude Code and you're done.
 
-Add komi-zone to `~/.claude/plugins/known_marketplaces.json`:
+### Managing Plugins
 
-```json
-{
-  "komi-zone": {
-    "source": {
-      "source": "directory",
-      "path": "/home/YOUR_USERNAME/repos/komi-zone"
-    },
-    "installLocation": "/home/YOUR_USERNAME/repos/komi-zone",
-    "lastUpdated": "2026-01-22T00:00:00.000Z"
-  }
-}
+```bash
+# List installed plugins
+claude plugin list
+
+# Disable a plugin
+claude plugin disable znote@komi-zone
+
+# Enable a plugin
+claude plugin enable znote@komi-zone
+
+# Update plugins
+claude plugin update znote@komi-zone
+
+# Update marketplace
+claude plugin marketplace update komi-zone
 ```
-
-### Step 3: Enable Plugins
-
-Add to `~/.claude/settings.json` under `enabledPlugins`:
-
-```json
-{
-  "enabledPlugins": {
-    "znote@komi-zone": true
-  }
-}
-```
-
-### Step 4: Register Plugin Installation
-
-Add to `~/.claude/plugins/installed_plugins.json`:
-
-```json
-{
-  "znote@komi-zone": [
-    {
-      "scope": "user",
-      "installPath": "/home/YOUR_USERNAME/repos/komi-zone/plugins/znote",
-      "version": "1.0.0",
-      "installedAt": "2026-01-22T00:00:00.000Z",
-      "lastUpdated": "2026-01-22T00:00:00.000Z"
-    }
-  ]
-}
-```
-
-### Step 5: Restart Claude Code
-
-The plugins will load on the next session.
 
 ## znote Plugin
 
@@ -158,33 +128,38 @@ To add a new plugin to this marketplace:
 
 ### MCP servers not appearing
 
-1. Verify submodules are cloned:
+1. Ensure `uv` is installed and in PATH:
    ```bash
-   cd ~/repos/komi-zone
-   git submodule update --init --recursive
+   uv --version
    ```
 
-2. Test server manually:
+2. Test the server manually:
    ```bash
-   cd plugins/znote/mcp-servers/znote-mcp
+   # Find the plugin install location
+   claude plugin list
+
+   # Test the server
+   cd <install-path>/mcp-servers/znote-mcp
    uv run python -m znote_mcp.main
    ```
 
-3. Check that `uv` is installed and in PATH
-
-4. Restart Claude Code session
+3. Restart Claude Code session
 
 ### Plugin not loading
 
-1. Verify paths in `known_marketplaces.json` match your actual clone location
-2. Verify `installed_plugins.json` has correct `installPath`
-3. Check `settings.json` has `"znote@komi-zone": true`
-4. Restart Claude Code
+```bash
+# Check if installed
+claude plugin list
 
-### Submodules empty
+# Reinstall if needed
+claude plugin uninstall znote@komi-zone
+claude plugin install znote@komi-zone
+```
+
+### Update marketplace
 
 ```bash
-git submodule update --init --recursive
+claude plugin marketplace update komi-zone
 ```
 
 ## License
