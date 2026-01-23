@@ -7,7 +7,7 @@ A Claude Code plugin marketplace with zettelkasten workflows, specialized agents
 | Plugin | Install Command | Description |
 |--------|-----------------|-------------|
 | **anamnesis** | `claude plugin install anamnesis@komi-zone` | Semantic code intelligence: AST parsing, pattern learning, codebase blueprints |
-| **znote** | `claude plugin install znote@komi-zone` | Zettelkasten-integrated workflows with 10 specialized agents and 4 slash commands |
+| **znote** | `claude plugin install znote@komi-zone` | Zettelkasten-integrated workflows with 14 specialized agents and 4 slash commands |
 
 ## Installation
 
@@ -80,17 +80,42 @@ Zettelkasten-integrated workflows that spawn specialized agents to analyze code 
 
 ### Specialized Agents
 
+**Architecture & Design**
 | Agent | Purpose |
 |-------|---------|
 | **architecture-planner** | Strategic architecture design, phase planning |
-| **refactor-agent** | Identifies improvement opportunities (productive tension with architecture-planner) |
+| **refactor-agent** | Identifies improvement opportunities |
+| **api-designer** | API contract design, endpoint structure |
+| **migration-specialist** | Upgrade planning, breaking change management |
+
+**Code Quality**
+| Agent | Purpose |
+|-------|---------|
 | **code-quality-reviewer** | Maintainability, readability, best practices |
 | **code-detective** | Finds stubs, TODOs, dead code, incomplete implementations |
+| **code-simplifier** | Simplifies code while preserving functionality |
+
+**Security & Performance**
+| Agent | Purpose |
+|-------|---------|
 | **security-reviewer** | Security vulnerabilities and patterns |
 | **performance-analyzer** | Bottleneck identification and optimization |
+| **dependency-auditor** | Dependency health, vulnerabilities, updates |
+
+**Testing**
+| Agent | Purpose |
+|-------|---------|
 | **test-strategist** | Test architecture and mock auditing |
+
+**Debugging**
+| Agent | Purpose |
+|-------|---------|
 | **lateral-debugger** | Unconventional problem-solving through reframing |
 | **systematic-debugger** | Rigorous, methodical hypothesis-driven debugging |
+
+**Research**
+| Agent | Purpose |
+|-------|---------|
 | **docs-investigator** | Checks documentation before assuming bugs are novel |
 
 ### Bundled MCP Server
@@ -120,7 +145,8 @@ komi-zone/                              # Marketplace root
 │   └── znote/                          # znote@komi-zone
 │       ├── .claude-plugin/plugin.json
 │       ├── .mcp.json
-│       ├── agents/                     # 10 specialized agents
+│       ├── agent-catalog.md            # Agent selection guide
+│       ├── agents/                     # 14 specialized agents
 │       ├── commands/                   # 4 slash commands
 │       └── mcp-servers/znote-mcp/      # Submodule
 └── README.md

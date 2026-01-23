@@ -1,29 +1,29 @@
 ---
-description: Multi-agent debugging session with zettelkasten documentation. Spawns lateral-debugger (unconventional thinking), systematic-debugger (rigorous methodology), and docs-investigator (checks existing knowledge). Documents the debugging journey for future reference.
+description: Multi-agent debugging session with zettelkasten documentation. Dynamically selects investigators based on bug characteristics, presents plan for user approval, then executes parallel investigation.
 argument-hint: Bug description, symptoms, or reference to failing behavior
 ---
 
 # Debugging Workflow
 
-You are orchestrating a multi-agent debugging session. This workflow combines systematic methodology with lateral thinking and documentation research to investigate bugs from multiple angles simultaneously.
+You are orchestrating a multi-agent debugging session. Your job is to characterize the bug, select appropriate investigators, get user approval, then coordinate parallel investigation.
 
 ## Core Principles
 
+- **Dynamic selection**: Choose investigators based on bug characteristics
+- **User collaboration**: Present your plan and get approval before executing
 - **Document the journey**: Future bugs may relate; capture the investigation
-- **Three perspectives**: Systematic rigor + lateral thinking + documentation research
 - **Agents document directly**: Agents create their own zettelkasten notes
-- **You synthesize**: Your hub note captures the diagnosis and resolution
-- **Parallel execution**: Launch all agents simultaneously for faster diagnosis
 
 ---
 
-## Phase 1: Bug Characterization
+## Phase 0: Bug Assessment & Agent Selection
 
-**Goal**: Understand the bug well enough to direct investigation
+**Goal**: Understand the bug and propose an investigation team
+
+### Step 1: Characterize the Bug
 
 **Input**: $ARGUMENTS
 
-**Actions**:
 1. Gather bug profile:
    - **Symptom**: What's the observable behavior?
    - **Expected**: What should happen?
@@ -35,27 +35,89 @@ You are orchestrating a multi-agent debugging session. This workflow combines sy
    - `zk_fts_search` for error messages or symptoms
    - Check if this has been investigated before
 
-3. Identify investigation scope:
-   - Which files/components are likely involved?
-   - What dependencies might be relevant?
-   - Are there related features that work correctly?
+3. Analyze bug characteristics:
+   - Is it deterministic or intermittent?
+   - Does it seem like logic error, configuration, or external?
+   - Is it potentially a known library/framework issue?
+   - Are there test gaps that should have caught this?
 
-4. If bug is unclear, ask user:
-   - Can you reproduce it consistently?
-   - What have you already tried?
-   - When did you first notice this?
+### Step 2: Select Agents
+
+Reference the **Agent Catalog** (agent-catalog.md) and select investigators based on bug characteristics.
+
+**For debugging, consider:**
+
+| Agent | Consider When |
+|-------|---------------|
+| systematic-debugger | Almost always—rigorous methodology is valuable |
+| lateral-debugger | Bug defies explanation, conventional approaches failed |
+| docs-investigator | Might be documented behavior, library issue |
+| test-strategist | Want regression tests, test gaps enabled bug |
+| performance-analyzer | Performance-related symptoms |
+| code-detective | Suspect incomplete implementation, hidden issues |
+| security-reviewer | Security-related symptoms |
+
+**Selection guidelines:**
+- 2-3 investigators is typical for debugging
+- systematic-debugger is usually valuable
+- lateral-debugger helps when stuck or counterintuitive
+- docs-investigator is key when library behavior is suspect
+
+### Step 3: Present Plan to User
+
+Before proceeding, present your proposed approach:
+
+```
+## Investigation Approach
+
+**Bug Profile**:
+- Symptom: [what's happening]
+- Expected: [what should happen]
+- Reproducibility: [conditions]
+
+**Proposed Investigation Team**:
+| Investigator | Approach |
+|--------------|----------|
+| [agent] | [what they'll investigate] |
+| ... | ... |
+
+**Why This Team**: [Brief reasoning]
+
+**Alternative Investigators Available**: [list any you considered but didn't select]
+
+---
+
+Would you like to:
+- Approve this approach
+- Add investigator: [name]
+- Remove investigator: [name]
+- Modify investigation focus
+```
+
+**WAIT for user confirmation before proceeding to Phase 1.**
+
+---
+
+## Phase 1: Additional Context (if needed)
+
+**Goal**: Gather more information if needed
+
+If bug details are incomplete:
+- Can you reproduce it consistently?
+- What have you already tried?
+- When did you first notice this?
+- What changed recently?
 
 ---
 
 ## Phase 2: Agent Deployment
 
-**Goal**: Launch debugging specialists in parallel
+**Goal**: Launch approved investigators in parallel
 
-### Always Deploy:
+For each selected investigator, use the Task tool with:
 
-**lateral-debugger** (existing agent)
 ```
-Investigate this bug using unconventional approaches and lateral thinking.
+Investigate this bug using [your specific approach].
 
 Bug Profile:
 - Symptom: [What's happening]
@@ -66,87 +128,28 @@ Bug Profile:
 Scope: [Files/components likely involved]
 
 Requirements:
-- Challenge fundamental assumptions about what's happening
-- Generate 3-5 radically different framings of the problem
-- Create a zettelkasten note documenting your analysis
-- Use note_type: "permanent", project: "[project name]"
-- Tag with: debugging, lateral-thinking, investigation
-- Return the note ID when complete
-```
-
-**systematic-debugger** (znote-workflow)
-```
-Investigate this bug using rigorous systematic methodology.
-
-Bug Profile:
-- Symptom: [What's happening]
-- Expected: [What should happen]
-- Reproducibility: [Conditions]
-- Context: [When it started, what changed]
-
-Scope: [Files/components likely involved]
-
-Requirements:
-- Form testable hypotheses
-- Design experiments to distinguish between hypotheses
-- Document evidence trail systematically
 - Create a zettelkasten note documenting your investigation
 - Use note_type: "permanent", project: "[project name]"
-- Tag with: debugging, root-cause, investigation
+- Tag with: debugging, investigation, [approach-tag]
 - Return the note ID when complete
 ```
 
-**docs-investigator** (znote-workflow)
-```
-Research whether this bug behavior is documented or known.
-
-Bug Profile:
-- Symptom: [What's happening]
-- Expected: [What should happen]
-- Technologies involved: [Libraries, frameworks, etc.]
-
-Requirements:
-- Search our zettelkasten for prior knowledge
-- Check library documentation via context7
-- Search for known issues in dependencies
-- Create a zettelkasten note documenting your research
-- Use note_type: "permanent", project: "[project name]"
-- Tag with: documentation, research, investigation
-- Include verdict: Documented Behavior / Known Issue / Novel Issue / Unclear
-- Return the note ID when complete
-```
-
-### Conditionally Deploy:
-
-**test-strategist** (znote-workflow) - When investigation reveals test gaps:
-```
-Design tests that would have caught this bug and will prevent regression.
-
-Bug Profile: [Summary]
-Root Cause: [If identified by other agents]
-
-Requirements:
-- Create a zettelkasten note documenting test recommendations
-- Use note_type: "permanent", project: "[project name]"
-- Tag with: testing, debugging, regression-prevention
-- Focus on behavioral contracts, not implementation
-- Return the note ID when complete
-```
+**Launch all investigators in parallel** using multiple Task tool calls in a single message.
 
 ---
 
 ## Phase 3: Analysis Synthesis
 
-**Goal**: Synthesize agent findings into diagnosis
+**Goal**: Synthesize findings into diagnosis
 
 **Actions**:
-1. Wait for all agents to complete
-2. Read each agent's note using `zk_get_note`
+1. Wait for all investigators to complete
+2. Read each investigator's note using `zk_get_note`
 3. Cross-reference findings:
-   - Do systematic and lateral approaches converge on same root cause?
+   - Do different approaches converge on same root cause?
    - Did docs-investigator find this is known/documented?
-   - Are there conflicting hypotheses that need resolution?
-4. Identify the most likely root cause with supporting evidence
+   - Are there conflicting hypotheses?
+4. Identify most likely root cause with supporting evidence
 
 ---
 
@@ -165,12 +168,9 @@ Requirements:
 
 ## Investigation Summary
 
-| Agent | Approach | Key Finding | Note |
-|-------|----------|-------------|------|
-| lateral-debugger | Unconventional | [Key insight] | reference [[note-id]] |
-| systematic-debugger | Methodical | [Key finding] | reference [[note-id]] |
-| docs-investigator | Documentation | [Verdict] | reference [[note-id]] |
-| test-strategist | Testing | [If invoked] | reference [[note-id]] |
+| Investigator | Approach | Key Finding | Note |
+|--------------|----------|-------------|------|
+| [agent] | [approach] | [Key insight] | reference [[note-id]] |
 
 ## Root Cause Analysis
 
@@ -180,9 +180,8 @@ Requirements:
 **Why**: [Mechanism explanation]
 
 ### Evidence
-- [Evidence 1 from systematic investigation]
-- [Evidence 2 from lateral thinking]
-- [Documentation findings if relevant]
+- [Evidence 1]
+- [Evidence 2]
 
 ### Confidence Level
 [High/Medium/Low] — [Why this confidence level]
@@ -198,28 +197,19 @@ Requirements:
 - [ ] Edge cases considered
 
 ### Alternative Approaches Considered
-[From lateral-debugger's alternative framings]
+[From investigators' alternative framings]
 
 ## Broader Implications
 
 ### Similar Code Patterns
 [Where else this bug class might exist]
 
-### Systemic Issues
-[Any process/design issues that enabled this bug]
-
 ### Prevention Measures
 [What would prevent similar bugs]
 
-## Test Coverage
-[From test-strategist if invoked, or note that tests are needed]
-
 ## Linked Documentation
-- reference [[lateral-debugger-note-id]]
-- reference [[systematic-debugger-note-id]]
-- reference [[docs-investigator-note-id]]
-- reference [[test-strategist-note-id]] (if applicable)
-- related [[prior-similar-bug]] (if found in zettelkasten)
+- reference [[investigator-note-ids]]
+- related [[prior-similar-bug]] (if found)
 ```
 
 **Hub note metadata**:
@@ -231,77 +221,22 @@ Requirements:
 
 ## Phase 5: Resolution
 
-**Goal**: Apply fix and ensure proper closure
-
 **Actions**:
 1. If root cause is identified:
    - Propose fix to user
-   - After fix is applied, update hub note with resolution details
+   - After fix, update hub note
 
 2. If root cause is uncertain:
-   - Present competing hypotheses to user
-   - Recommend experiments to distinguish between them
+   - Present competing hypotheses
+   - Recommend experiments to distinguish
    - Update hub note with current state
 
 3. Create links using `zk_create_link`:
-   - Hub → each agent note with link_type: "reference"
-   - If this relates to a prior bug, link with "related"
+   - Hub → each investigator note
+   - Link to prior related bugs if found
 
-4. If test-strategist wasn't invoked but should be:
-   - Recommend invoking to design regression tests
-   - Or note test needs in hub for future action
-
-5. Present to user:
+4. Present to user:
    - Diagnosis summary
    - Fix recommendation
    - Confidence level
    - Outstanding questions
-
----
-
-## Workflow Decision Tree
-
-```
-Bug reported
-     │
-     ▼
-Characterize bug
-(symptom, expected, reproducibility)
-     │
-     ▼
-Search existing knowledge
-     │
-     ├─ Found prior investigation? ─► Review and extend
-     │
-     └─ Novel bug ─┐
-                   │
-                   ▼
-     ┌─────────────┴─────────────┐
-     │    Deploy all three:      │
-     │  • lateral-debugger       │
-     │  • systematic-debugger    │
-     │  • docs-investigator      │
-     └─────────────┬─────────────┘
-                   │
-                   ▼
-         Synthesize findings
-                   │
-     ┌─────────────┼─────────────┐
-     │             │             │
-Converge on    Diverge on    Docs found
-root cause     hypotheses    known issue
-     │             │             │
-     ▼             ▼             ▼
-  Fix bug     Design tests   Apply known
-     │        to distinguish  workaround
-     │             │             │
-     └──────┬──────┴──────┬──────┘
-            │             │
-            ▼             ▼
-     Create hub note   Invoke
-     with diagnosis    test-strategist
-            │          if needed
-            ▼
-     Link and present
-       to user
-```
