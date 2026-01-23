@@ -4,9 +4,10 @@ A Claude Code plugin marketplace with zettelkasten workflows, specialized agents
 
 ## Available Plugins
 
-| Plugin | Enable With | Description |
-|--------|-------------|-------------|
-| **znote** | `znote@komi-zone` | Zettelkasten-integrated workflows with 10 specialized agents, 4 slash commands, and bundled MCP servers |
+| Plugin | Install Command | Description |
+|--------|-----------------|-------------|
+| **anamnesis** | `claude plugin install anamnesis@komi-zone` | Semantic code intelligence: AST parsing, pattern learning, codebase blueprints |
+| **znote** | `claude plugin install znote@komi-zone` | Zettelkasten-integrated workflows with 10 specialized agents and 4 slash commands |
 
 ## Installation
 
@@ -21,8 +22,9 @@ A Claude Code plugin marketplace with zettelkasten workflows, specialized agents
 # Add the marketplace
 claude plugin marketplace add https://github.com/YOUR_USERNAME/komi-zone
 
-# Install the znote plugin
-claude plugin install znote@komi-zone
+# Install plugins (pick what you need)
+claude plugin install anamnesis@komi-zone   # Code intelligence
+claude plugin install znote@komi-zone       # Zettelkasten workflows
 ```
 
 Restart Claude Code and you're done.
@@ -33,10 +35,8 @@ Restart Claude Code and you're done.
 # List installed plugins
 claude plugin list
 
-# Disable a plugin
+# Disable/enable a plugin
 claude plugin disable znote@komi-zone
-
-# Enable a plugin
 claude plugin enable znote@komi-zone
 
 # Update plugins
@@ -46,7 +46,28 @@ claude plugin update znote@komi-zone
 claude plugin marketplace update komi-zone
 ```
 
+---
+
+## anamnesis Plugin
+
+Semantic code intelligence MCP server supporting 11 languages.
+
+### Capabilities
+
+- **AST Parsing** - Tree-sitter based parsing for TypeScript, JavaScript, Python, Rust, Go, Java, C, C++, C#, SQL, Ruby
+- **Pattern Learning** - Learns codebase conventions and idioms
+- **Codebase Blueprints** - High-level architectural overviews
+- **Approach Prediction** - Suggests files and patterns for implementing features
+
+### MCP Tools
+
+The anamnesis server provides tools for semantic code analysis (tools prefixed with codebase analysis operations).
+
+---
+
 ## znote Plugin
+
+Zettelkasten-integrated workflows that spawn specialized agents to analyze code from multiple perspectives, documenting findings as permanent linked notes.
 
 ### Slash Commands
 
@@ -59,42 +80,30 @@ claude plugin marketplace update komi-zone
 
 ### Specialized Agents
 
-- **architecture-planner** - Strategic architecture planning
-- **code-detective** - Finds incomplete implementations, dead code, rot
-- **code-quality-reviewer** - Maintainability and best practices
-- **docs-investigator** - Checks documentation before assuming bugs
-- **lateral-debugger** - Unconventional problem-solving approaches
-- **performance-analyzer** - Bottleneck identification and optimization
-- **refactor-agent** - Identifies refactoring opportunities
-- **security-reviewer** - Security vulnerabilities and patterns
-- **systematic-debugger** - Rigorous, methodical debugging
-- **test-strategist** - Test architecture and mock auditing
+| Agent | Purpose |
+|-------|---------|
+| **architecture-planner** | Strategic architecture design, phase planning |
+| **refactor-agent** | Identifies improvement opportunities (productive tension with architecture-planner) |
+| **code-quality-reviewer** | Maintainability, readability, best practices |
+| **code-detective** | Finds stubs, TODOs, dead code, incomplete implementations |
+| **security-reviewer** | Security vulnerabilities and patterns |
+| **performance-analyzer** | Bottleneck identification and optimization |
+| **test-strategist** | Test architecture and mock auditing |
+| **lateral-debugger** | Unconventional problem-solving through reframing |
+| **systematic-debugger** | Rigorous, methodical hypothesis-driven debugging |
+| **docs-investigator** | Checks documentation before assuming bugs are novel |
 
-### Bundled MCP Servers
-
-The znote plugin includes these MCP servers (loaded automatically):
+### Bundled MCP Server
 
 **znote-mcp** - Zettelkasten knowledge management:
-- `zk_create_note`, `zk_get_note`, `zk_update_note`, `zk_delete_note`
-- `zk_create_link`, `zk_remove_link`, `zk_find_related`
-- `zk_search_notes`, `zk_fts_search`, `zk_list_notes`
-- `zk_status`, `zk_system`
+- Note operations: `zk_create_note`, `zk_get_note`, `zk_update_note`, `zk_delete_note`
+- Linking: `zk_create_link`, `zk_remove_link`, `zk_find_related`
+- Search: `zk_search_notes`, `zk_fts_search`, `zk_list_notes`
+- System: `zk_status`, `zk_system`
 
-**anamnesis** - Semantic code memory:
-- Session context and code understanding
+Notes are stored in `~/.zettelkasten/` by default.
 
-### Configure Zettelkasten Path (Optional)
-
-The znote-mcp server stores notes in `~/.zettelkasten/` by default. The plugin's `.mcp.json` sets:
-
-```json
-{
-  "env": {
-    "ZETTELKASTEN_NOTES_DIR": "${HOME}/.zettelkasten/notes",
-    "ZETTELKASTEN_DATABASE_PATH": "${HOME}/.zettelkasten/zettelkasten.db"
-  }
-}
-```
+---
 
 ## Structure
 
@@ -103,15 +112,17 @@ komi-zone/                              # Marketplace root
 ├── .claude-plugin/
 │   └── marketplace.json                # Marketplace manifest
 ├── plugins/
-│   └── znote/                          # znote@komi-zone plugin
-│       ├── .claude-plugin/
-│       │   └── plugin.json             # Plugin manifest
-│       ├── .mcp.json                   # MCP server config
+│   ├── anamnesis/                      # anamnesis@komi-zone
+│   │   ├── .claude-plugin/plugin.json
+│   │   ├── .mcp.json
+│   │   └── mcp-servers/anamnesis/      # Submodule
+│   │
+│   └── znote/                          # znote@komi-zone
+│       ├── .claude-plugin/plugin.json
+│       ├── .mcp.json
 │       ├── agents/                     # 10 specialized agents
 │       ├── commands/                   # 4 slash commands
-│       └── mcp-servers/                # Bundled servers (submodules)
-│           ├── znote-mcp/
-│           └── anamnesis/
+│       └── mcp-servers/znote-mcp/      # Submodule
 └── README.md
 ```
 
@@ -135,12 +146,9 @@ To add a new plugin to this marketplace:
 
 2. Test the server manually:
    ```bash
-   # Find the plugin install location
-   claude plugin list
-
-   # Test the server
-   cd <install-path>/mcp-servers/znote-mcp
-   uv run python -m znote_mcp.main
+   claude plugin list  # Find install path
+   cd <install-path>/mcp-servers/<server-name>
+   uv run python -m <module>.main
    ```
 
 3. Restart Claude Code session
@@ -148,12 +156,9 @@ To add a new plugin to this marketplace:
 ### Plugin not loading
 
 ```bash
-# Check if installed
 claude plugin list
-
-# Reinstall if needed
-claude plugin uninstall znote@komi-zone
-claude plugin install znote@komi-zone
+claude plugin uninstall <plugin>@komi-zone
+claude plugin install <plugin>@komi-zone
 ```
 
 ### Update marketplace

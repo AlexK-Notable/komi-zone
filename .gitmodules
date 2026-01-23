@@ -1,6 +1,6 @@
 [submodule "plugins/znote/mcp-servers/znote-mcp"]
 	path = plugins/znote/mcp-servers/znote-mcp
 	url = https://github.com/AlexK-Notable/znote-mcp.git
-[submodule "plugins/znote/mcp-servers/anamnesis"]
-	path = plugins/znote/mcp-servers/anamnesis
+[submodule "plugins/anamnesis/mcp-servers/anamnesis"]
+	path = plugins/anamnesis/mcp-servers/anamnesis
 	url = https://github.com/AlexK-Notable/anamnesis.git

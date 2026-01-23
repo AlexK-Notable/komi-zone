@@ -7,6 +7,17 @@
   },
   "plugins": [
     {
+      "name": "anamnesis",
+      "description": "Semantic code intelligence: AST parsing, pattern learning, codebase blueprints, and approach prediction for 11 languages.",
+      "version": "1.0.0",
+      "author": {
+        "name": "komi"
+      },
+      "source": "./plugins/anamnesis",
+      "category": "developer-tools",
+      "keywords": ["code-intelligence", "semantic-analysis", "ast", "patterns", "mcp"]
+    },
+    {
       "name": "znote",
       "description": "Zettelkasten-integrated workflows with 10 specialized agents and 4 slash commands. Includes bundled znote-mcp server for knowledge management.",
       "version": "1.0.0",

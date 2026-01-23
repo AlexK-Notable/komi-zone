@@ -1,0 +1,13 @@
+{
+  "anamnesis": {
+    "command": "uv",
+    "args": [
+      "--directory",
+      "${CLAUDE_PLUGIN_ROOT}/mcp-servers/anamnesis",
+      "run",
+      "python",
+      "-m",
+      "anamnesis.mcp_server"
+    ]
+  }
+}
