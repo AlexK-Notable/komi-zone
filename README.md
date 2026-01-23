@@ -20,7 +20,7 @@ A Claude Code plugin marketplace with zettelkasten workflows, specialized agents
 
 ```bash
 # Add the marketplace
-claude plugin marketplace add https://github.com/YOUR_USERNAME/komi-zone
+claude plugin marketplace add https://github.com/AlexK-Notable/komi-zone
 
 # Install plugins (pick what you need)
 claude plugin install anamnesis@komi-zone   # Code intelligence
