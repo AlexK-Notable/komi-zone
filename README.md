@@ -73,10 +73,10 @@ Zettelkasten-integrated workflows that spawn specialized agents to analyze code 
 
 | Command | Description |
 |---------|-------------|
-| `/znote-plans` | Multi-agent implementation planning with zettelkasten documentation |
-| `/znote-review` | Multi-agent code review with permanent notes |
-| `/znote-debug` | Multi-agent debugging session with documentation |
-| `/znote-research` | Research and knowledge synthesis |
+| `/znote:plans` | Multi-agent implementation planning with zettelkasten documentation |
+| `/znote:review` | Multi-agent code review with permanent notes |
+| `/znote:debug` | Multi-agent debugging session with documentation |
+| `/znote:research` | Research and knowledge synthesis |
 
 ### Specialized Agents
 
