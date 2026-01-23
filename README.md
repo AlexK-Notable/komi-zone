@@ -1,139 +1,187 @@
 # komi-zone
 
-A self-contained Claude Code enhancement package with zettelkasten workflows, semantic code intelligence, and productivity tools.
+A Claude Code plugin marketplace with zettelkasten workflows, specialized agents, and productivity tools.
 
-## What's Included
+## Available Plugins
 
-| Component | Description |
-|-----------|-------------|
-| **znote** | Zettelkasten-integrated workflows: planning, code review, research, debugging |
-| **znote-mcp** | MCP server for zettelkasten knowledge management |
-| **anamnesis** | MCP server for semantic code analysis and intelligence |
-| **hooks/** | Customizable automation hooks (template) |
-| **skills/** | Domain knowledge and guardrails (template) |
+| Plugin | Enable With | Description |
+|--------|-------------|-------------|
+| **znote** | `znote@komi-zone` | Zettelkasten-integrated workflows with 10 specialized agents, 4 slash commands, and bundled MCP servers |
 
 ## Installation
 
 ### Prerequisites
 
 - [Claude Code](https://claude.ai/claude-code) installed
-- [uv](https://github.com/astral-sh/uv) (Python package manager)
+- [uv](https://github.com/astral-sh/uv) (Python package manager) - for MCP servers
 - Git
 
-### Quick Install
+### Step 1: Clone the Repository
 
 ```bash
-# Clone with submodules
-git clone --recursive https://github.com/YOUR_USERNAME/komi-zone.git
+git clone --recursive https://github.com/YOUR_USERNAME/komi-zone.git ~/repos/komi-zone
 
-# Or if already cloned without --recursive:
-git submodule update --init --recursive
-
-# Install MCP server dependencies
-cd komi-zone/mcp-servers/znote-mcp && uv sync
-cd ../anamnesis && uv sync
+# If you forgot --recursive:
+cd ~/repos/komi-zone && git submodule update --init --recursive
 ```
 
-### Register the Plugin
+### Step 2: Register the Marketplace
 
-Add to your Claude Code plugins:
+Add komi-zone to `~/.claude/plugins/known_marketplaces.json`:
 
-```bash
-# Using Claude Code CLI
-claude plugins add /path/to/komi-zone
-
-# Or manually add to ~/.claude/settings.json:
-# "enabledPlugins": {
-#   "komi-zone@local": true
-# }
+```json
+{
+  "komi-zone": {
+    "source": {
+      "source": "directory",
+      "path": "/home/YOUR_USERNAME/repos/komi-zone"
+    },
+    "installLocation": "/home/YOUR_USERNAME/repos/komi-zone",
+    "lastUpdated": "2026-01-22T00:00:00.000Z"
+  }
+}
 ```
 
-### Configure Zettelkasten Path (Optional)
+### Step 3: Enable Plugins
 
-The znote-mcp server stores notes in `~/.zettelkasten/` by default. To customize:
+Add to `~/.claude/settings.json` under `enabledPlugins`:
 
-```bash
-export ZETTELKASTEN_NOTES_DIR="$HOME/my-notes"
-export ZETTELKASTEN_DATABASE_PATH="$HOME/my-notes/zettelkasten.db"
+```json
+{
+  "enabledPlugins": {
+    "znote@komi-zone": true
+  }
+}
 ```
 
-## Usage
+### Step 4: Register Plugin Installation
 
-### Slash Commands (from znote)
+Add to `~/.claude/plugins/installed_plugins.json`:
+
+```json
+{
+  "znote@komi-zone": [
+    {
+      "scope": "user",
+      "installPath": "/home/YOUR_USERNAME/repos/komi-zone/plugins/znote",
+      "version": "1.0.0",
+      "installedAt": "2026-01-22T00:00:00.000Z",
+      "lastUpdated": "2026-01-22T00:00:00.000Z"
+    }
+  ]
+}
+```
+
+### Step 5: Restart Claude Code
+
+The plugins will load on the next session.
+
+## znote Plugin
+
+### Slash Commands
 
 | Command | Description |
 |---------|-------------|
-| `/znote-plans` | Multi-agent implementation planning with zettelkasten docs |
+| `/znote-plans` | Multi-agent implementation planning with zettelkasten documentation |
 | `/znote-review` | Multi-agent code review with permanent notes |
 | `/znote-debug` | Multi-agent debugging session with documentation |
 | `/znote-research` | Research and knowledge synthesis |
 
-### MCP Tools
+### Specialized Agents
 
-Once installed, you'll have access to:
+- **architecture-planner** - Strategic architecture planning
+- **code-detective** - Finds incomplete implementations, dead code, rot
+- **code-quality-reviewer** - Maintainability and best practices
+- **docs-investigator** - Checks documentation before assuming bugs
+- **lateral-debugger** - Unconventional problem-solving approaches
+- **performance-analyzer** - Bottleneck identification and optimization
+- **refactor-agent** - Identifies refactoring opportunities
+- **security-reviewer** - Security vulnerabilities and patterns
+- **systematic-debugger** - Rigorous, methodical debugging
+- **test-strategist** - Test architecture and mock auditing
 
-**znote-mcp tools:**
+### Bundled MCP Servers
+
+The znote plugin includes these MCP servers (loaded automatically):
+
+**znote-mcp** - Zettelkasten knowledge management:
 - `zk_create_note`, `zk_get_note`, `zk_update_note`, `zk_delete_note`
-- `zk_create_link`, `zk_remove_link`
-- `zk_search_notes`, `zk_fts_search`
-- `zk_add_tag`, `zk_remove_tag`
-- And more...
+- `zk_create_link`, `zk_remove_link`, `zk_find_related`
+- `zk_search_notes`, `zk_fts_search`, `zk_list_notes`
+- `zk_status`, `zk_system`
 
-**anamnesis tools:**
-- `analyze_codebase` - Semantic code analysis
-- `search_codebase` - Intelligent code search
-- `get_semantic_insights` - Code pattern insights
-- `predict_coding_approach` - Context-aware suggestions
-- And more...
+**anamnesis** - Semantic code memory:
+- Session context and code understanding
+
+### Configure Zettelkasten Path (Optional)
+
+The znote-mcp server stores notes in `~/.zettelkasten/` by default. The plugin's `.mcp.json` sets:
+
+```json
+{
+  "env": {
+    "ZETTELKASTEN_NOTES_DIR": "${HOME}/.zettelkasten/notes",
+    "ZETTELKASTEN_DATABASE_PATH": "${HOME}/.zettelkasten/zettelkasten.db"
+  }
+}
+```
 
 ## Structure
 
 ```
-komi-zone/
+komi-zone/                              # Marketplace root
 ├── .claude-plugin/
-│   └── plugin.json           # Main plugin manifest
-├── .mcp.json                  # MCP server configurations
-├── hooks/
-│   ├── hooks.json            # Hook definitions
-│   └── HOOKS_README.md       # How to add hooks
-├── skills/
-│   └── SKILLS_README.md      # How to add skills
-├── mcp-servers/
-│   ├── znote-mcp/            # Zettelkasten MCP (submodule)
-│   └── anamnesis/            # Code intelligence MCP (submodule)
-└── znote/                    # Znote plugin (agents + commands)
-    ├── agents/               # 10 specialized agents
-    └── commands/             # 4 slash commands
+│   └── marketplace.json                # Marketplace manifest
+├── plugins/
+│   └── znote/                          # znote@komi-zone plugin
+│       ├── .claude-plugin/
+│       │   └── plugin.json             # Plugin manifest
+│       ├── .mcp.json                   # MCP server config
+│       ├── agents/                     # 10 specialized agents
+│       ├── commands/                   # 4 slash commands
+│       └── mcp-servers/                # Bundled servers (submodules)
+│           ├── znote-mcp/
+│           └── anamnesis/
+└── README.md
 ```
 
-## Customization
+## Adding More Plugins
 
-### Adding Hooks
+To add a new plugin to this marketplace:
 
-See `hooks/HOOKS_README.md` for how to add automation hooks.
-
-### Adding Skills
-
-See `skills/SKILLS_README.md` for how to add domain knowledge and guardrails.
+1. Create `plugins/your-plugin/`
+2. Add `.claude-plugin/plugin.json` with name, description, version
+3. Add agents, commands, skills, hooks as needed
+4. Update `.claude-plugin/marketplace.json` to list the new plugin
 
 ## Troubleshooting
 
 ### MCP servers not appearing
 
-1. Verify dependencies installed:
+1. Verify submodules are cloned:
    ```bash
-   cd mcp-servers/znote-mcp && uv sync
-   cd ../anamnesis && uv sync
+   cd ~/repos/komi-zone
+   git submodule update --init --recursive
    ```
 
 2. Test server manually:
    ```bash
-   cd mcp-servers/znote-mcp && uv run python -m znote_mcp.main
+   cd plugins/znote/mcp-servers/znote-mcp
+   uv run python -m znote_mcp.main
    ```
 
-3. Restart Claude Code session
+3. Check that `uv` is installed and in PATH
 
-### Submodules not cloned
+4. Restart Claude Code session
+
+### Plugin not loading
+
+1. Verify paths in `known_marketplaces.json` match your actual clone location
+2. Verify `installed_plugins.json` has correct `installPath`
+3. Check `settings.json` has `"znote@komi-zone": true`
+4. Restart Claude Code
+
+### Submodules empty
 
 ```bash
 git submodule update --init --recursive
