@@ -1,0 +1,28 @@
+{
+  "znote-mcp": {
+    "command": "uv",
+    "args": [
+      "--directory",
+      "${CLAUDE_PLUGIN_ROOT}/mcp-servers/znote-mcp",
+      "run",
+      "python",
+      "-m",
+      "znote_mcp.main"
+    ],
+    "env": {
+      "ZETTELKASTEN_NOTES_DIR": "${HOME}/.zettelkasten/notes",
+      "ZETTELKASTEN_DATABASE_PATH": "${HOME}/.zettelkasten/zettelkasten.db"
+    }
+  },
+  "anamnesis": {
+    "command": "uv",
+    "args": [
+      "--directory",
+      "${CLAUDE_PLUGIN_ROOT}/mcp-servers/anamnesis",
+      "run",
+      "python",
+      "-m",
+      "anamnesis.mcp_server"
+    ]
+  }
+}

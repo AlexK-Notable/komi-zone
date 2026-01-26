@@ -1,9 +1,0 @@
-{
-  "name": "znote",
-  "description": "Zettelkasten-integrated workflows with 14 specialized agents. Dynamically selects agents based on task, presents plan for approval, then executes. All analysis documented as permanent linked notes.",
-  "version": "1.0.0",
-  "author": {
-    "name": "komi"
-  },
-  "keywords": ["zettelkasten", "workflow", "planning", "review", "debugging", "documentation", "mcp"]
-}

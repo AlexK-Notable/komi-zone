@@ -1,9 +1,0 @@
-{
-  "name": "anamnesis",
-  "description": "Semantic code intelligence: AST parsing, pattern learning, codebase blueprints, and approach prediction for 11 languages.",
-  "version": "1.0.0",
-  "author": {
-    "name": "komi"
-  },
-  "keywords": ["code-intelligence", "semantic-analysis", "ast", "patterns", "mcp"]
-}

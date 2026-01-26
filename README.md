@@ -1,13 +1,6 @@
 # komi-zone
 
-A Claude Code plugin marketplace with zettelkasten workflows, specialized agents, and productivity tools.
-
-## Available Plugins
-
-| Plugin | Install Command | Description |
-|--------|-----------------|-------------|
-| **anamnesis** | `claude plugin install anamnesis@komi-zone` | Semantic code intelligence: AST parsing, pattern learning, codebase blueprints |
-| **znote** | `claude plugin install znote@komi-zone` | Zettelkasten-integrated workflows with 14 specialized agents and 4 slash commands |
+A unified Claude Code plugin with zettelkasten workflows, specialized agents, and bundled MCP servers.
 
 ## Installation
 
@@ -19,55 +12,32 @@ A Claude Code plugin marketplace with zettelkasten workflows, specialized agents
 ### Quick Install
 
 ```bash
-# Add the marketplace
-claude plugin marketplace add https://github.com/AlexK-Notable/komi-zone
+# Install the plugin directly from GitHub
+claude plugin install https://github.com/AlexK-Notable/komi-zone
 
-# Install plugins (pick what you need)
-claude plugin install anamnesis@komi-zone   # Code intelligence
-claude plugin install znote@komi-zone       # Zettelkasten workflows
+# Or if sharing with friends:
+claude plugin install komi-zone@komi-zone
 ```
 
 Restart Claude Code and you're done.
 
-### Managing Plugins
+### Managing the Plugin
 
 ```bash
-# List installed plugins
+# Check status
 claude plugin list
 
-# Disable/enable a plugin
-claude plugin disable znote@komi-zone
-claude plugin enable znote@komi-zone
+# Disable/enable
+claude plugin disable komi-zone
+claude plugin enable komi-zone
 
-# Update plugins
-claude plugin update znote@komi-zone
-
-# Update marketplace
-claude plugin marketplace update komi-zone
+# Update to latest
+claude plugin update komi-zone
 ```
 
 ---
 
-## anamnesis Plugin
-
-Semantic code intelligence MCP server supporting 11 languages.
-
-### Capabilities
-
-- **AST Parsing** - Tree-sitter based parsing for TypeScript, JavaScript, Python, Rust, Go, Java, C, C++, C#, SQL, Ruby
-- **Pattern Learning** - Learns codebase conventions and idioms
-- **Codebase Blueprints** - High-level architectural overviews
-- **Approach Prediction** - Suggests files and patterns for implementing features
-
-### MCP Tools
-
-The anamnesis server provides tools for semantic code analysis (tools prefixed with codebase analysis operations).
-
----
-
-## znote Plugin
-
-Zettelkasten-integrated workflows that spawn specialized agents to analyze code from multiple perspectives, documenting findings as permanent linked notes.
+## Features
 
 ### Slash Commands
 
@@ -78,7 +48,7 @@ Zettelkasten-integrated workflows that spawn specialized agents to analyze code 
 | `/znote:debug` | Multi-agent debugging session with documentation |
 | `/znote:research` | Research and knowledge synthesis |
 
-### Specialized Agents
+### Specialized Agents (15)
 
 **Architecture & Design**
 | Agent | Purpose |
@@ -118,7 +88,12 @@ Zettelkasten-integrated workflows that spawn specialized agents to analyze code 
 |-------|---------|
 | **docs-investigator** | Checks documentation before assuming bugs are novel |
 
-### Bundled MCP Server
+**Synthesis**
+| Agent | Purpose |
+|-------|---------|
+| **plan-reviewer** | Reviews multi-agent plans for coherence, feasibility, gaps |
+
+### Bundled MCP Servers
 
 **znote-mcp** - Zettelkasten knowledge management:
 - Note operations: `zk_create_note`, `zk_get_note`, `zk_update_note`, `zk_delete_note`
@@ -128,39 +103,29 @@ Zettelkasten-integrated workflows that spawn specialized agents to analyze code 
 
 Notes are stored in `~/.zettelkasten/` by default.
 
+**anamnesis** - Semantic code intelligence:
+- AST parsing for 11 languages (TypeScript, JavaScript, Python, Rust, Go, Java, C, C++, C#, SQL, Ruby)
+- Pattern learning from codebase conventions
+- Codebase blueprints and architectural overviews
+- Approach prediction for implementing features
+
 ---
 
 ## Structure
 
 ```
-komi-zone/                              # Marketplace root
-├── .claude-plugin/
-│   └── marketplace.json                # Marketplace manifest
-├── plugins/
-│   ├── anamnesis/                      # anamnesis@komi-zone
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── .mcp.json
-│   │   └── mcp-servers/anamnesis/      # Submodule
-│   │
-│   └── znote/                          # znote@komi-zone
-│       ├── .claude-plugin/plugin.json
-│       ├── .mcp.json
-│       ├── agent-catalog.md            # Agent selection guide
-│       ├── agents/                     # 14 specialized agents
-│       ├── commands/                   # 4 slash commands
-│       ├── hooks/                      # Auto-injects catalog on command use
-│       └── mcp-servers/znote-mcp/      # Submodule
+komi-zone/
+├── .claude-plugin/plugin.json    # Plugin manifest
+├── .mcp.json                     # MCP server configs
+├── agents/                       # 15 specialized agents
+├── commands/                     # 4 slash commands
+├── hooks/                        # Auto-injection hooks
+├── mcp-servers/
+│   ├── znote-mcp/               # Zettelkasten MCP (submodule)
+│   └── anamnesis/               # Code intelligence MCP (submodule)
+├── agent-catalog.md             # Agent selection guide
 └── README.md
 ```
-
-## Adding More Plugins
-
-To add a new plugin to this marketplace:
-
-1. Create `plugins/your-plugin/`
-2. Add `.claude-plugin/plugin.json` with name, description, version
-3. Add agents, commands, skills, hooks as needed
-4. Update `.claude-plugin/marketplace.json` to list the new plugin
 
 ## Troubleshooting
 
@@ -171,11 +136,15 @@ To add a new plugin to this marketplace:
    uv --version
    ```
 
-2. Test the server manually:
+2. Test the servers manually:
    ```bash
-   claude plugin list  # Find install path
-   cd <install-path>/mcp-servers/<server-name>
-   uv run python -m <module>.main
+   # znote-mcp
+   cd ~/repos/komi-zone/mcp-servers/znote-mcp
+   uv run python -m znote_mcp.main
+
+   # anamnesis
+   cd ~/repos/komi-zone/mcp-servers/anamnesis
+   uv run python -m anamnesis.mcp_server
    ```
 
 3. Restart Claude Code session
@@ -184,14 +153,8 @@ To add a new plugin to this marketplace:
 
 ```bash
 claude plugin list
-claude plugin uninstall <plugin>@komi-zone
-claude plugin install <plugin>@komi-zone
-```
-
-### Update marketplace
-
-```bash
-claude plugin marketplace update komi-zone
+claude plugin uninstall komi-zone
+claude plugin install https://github.com/AlexK-Notable/komi-zone
 ```
 
 ## License
