@@ -1,0 +1,22 @@
+{
+  "name": "komi-zone",
+  "owner": {
+    "name": "komi"
+  },
+  "metadata": {
+    "description": "Zettelkasten workflows, specialized agents, and code intelligence tools",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "komi-zone",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/AlexK-Notable/komi-zone"
+      },
+      "description": "16 specialized agents, 4 slash commands, and bundled MCP servers for zettelkasten-integrated development workflows",
+      "version": "1.0.0",
+      "strict": true
+    }
+  ]
+}

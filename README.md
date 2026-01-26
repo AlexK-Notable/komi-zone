@@ -1,6 +1,6 @@
 # komi-zone
 
-A unified Claude Code plugin with zettelkasten workflows, specialized agents, and bundled MCP servers.
+A Claude Code marketplace featuring zettelkasten workflows, specialized agents, and bundled MCP servers.
 
 ## Installation
 
@@ -12,27 +12,36 @@ A unified Claude Code plugin with zettelkasten workflows, specialized agents, an
 ### Quick Install
 
 ```bash
-# Install the plugin directly from GitHub
-claude plugin install https://github.com/AlexK-Notable/komi-zone
+# Add komi-zone as a marketplace
+claude plugin marketplace add AlexK-Notable/komi-zone
 
-# Or if sharing with friends:
+# Install the plugin from the marketplace
 claude plugin install komi-zone@komi-zone
 ```
 
 Restart Claude Code and you're done.
 
-### Managing the Plugin
+### Managing the Marketplace & Plugin
 
 ```bash
-# Check status
+# List marketplaces
+claude plugin marketplace list
+
+# Update marketplace catalog
+claude plugin marketplace update komi-zone
+
+# List installed plugins
 claude plugin list
 
 # Disable/enable
 claude plugin disable komi-zone
 claude plugin enable komi-zone
 
-# Update to latest
+# Update plugin to latest
 claude plugin update komi-zone
+
+# Remove marketplace
+claude plugin marketplace remove komi-zone
 ```
 
 ---
@@ -115,7 +124,9 @@ Notes are stored in `~/.zettelkasten/` by default.
 
 ```
 komi-zone/
-├── .claude-plugin/plugin.json    # Plugin manifest
+├── .claude-plugin/
+│   ├── marketplace.json          # Marketplace catalog
+│   └── plugin.json               # Plugin manifest
 ├── .mcp.json                     # MCP server configs
 ├── agents/                       # 15 specialized agents
 ├── commands/                     # 4 slash commands
@@ -154,7 +165,8 @@ komi-zone/
 ```bash
 claude plugin list
 claude plugin uninstall komi-zone
-claude plugin install https://github.com/AlexK-Notable/komi-zone
+claude plugin marketplace update komi-zone
+claude plugin install komi-zone@komi-zone
 ```
 
 ## License
