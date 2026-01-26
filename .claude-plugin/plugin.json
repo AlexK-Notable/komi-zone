@@ -1,7 +1,7 @@
 {
   "name": "komi-zone",
   "description": "Zettelkasten-integrated workflows with 16 specialized agents, 4 slash commands, and bundled MCP servers (znote-mcp for knowledge management, anamnesis for code intelligence).",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "komi"
   },
