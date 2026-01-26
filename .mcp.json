@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "znote-mcp": {
-      "command": "uv",
+      "command": "${HOME}/.local/bin/uv",
       "args": [
         "--directory",
         "${CLAUDE_PLUGIN_ROOT}/mcp-servers/znote-mcp",
@@ -16,7 +16,7 @@
       }
     },
     "anamnesis": {
-      "command": "uv",
+      "command": "${HOME}/.local/bin/uv",
       "args": [
         "--directory",
         "${CLAUDE_PLUGIN_ROOT}/mcp-servers/anamnesis",
