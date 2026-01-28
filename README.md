@@ -16,7 +16,7 @@ A Claude Code marketplace featuring zettelkasten workflows, specialized agents, 
 claude plugin marketplace add AlexK-Notable/komi-zone
 
 # Install the plugin from the marketplace
-claude plugin install znote-compendium@komi-zone
+claude plugin install znote@komi-zone
 ```
 
 Restart Claude Code and you're done.
@@ -34,11 +34,11 @@ claude plugin marketplace update komi-zone
 claude plugin list
 
 # Disable/enable
-claude plugin disable znote-compendium
-claude plugin enable znote-compendium
+claude plugin disable znote
+claude plugin enable znote
 
 # Update plugin to latest
-claude plugin update znote-compendium
+claude plugin update znote
 
 # Remove marketplace
 claude plugin marketplace remove komi-zone
@@ -164,9 +164,9 @@ komi-zone/
 
 ```bash
 claude plugin list
-claude plugin uninstall znote-compendium
+claude plugin uninstall znote
 claude plugin marketplace update komi-zone
-claude plugin install znote-compendium@komi-zone
+claude plugin install znote@komi-zone
 ```
 
 ## License
