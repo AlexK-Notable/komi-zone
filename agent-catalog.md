@@ -63,6 +63,13 @@ This catalog describes all available agents for znote workflows. Use this to sel
 |-------|---------|----------|
 | **docs-investigator** | Checks documentation before assuming bugs are novel; searches existing knowledge | Library issues, "is this a bug?" questions, prior art |
 
+### Synthesis
+*For plan validation and coherence checking*
+
+| Agent | Purpose | Good For |
+|-------|---------|----------|
+| **plan-reviewer** | Reviews multi-agent plans for coherence, feasibility, gaps | Plan validation, cross-agent coordination, implementation sanity checks |
+
 ---
 
 ## Command Affinities

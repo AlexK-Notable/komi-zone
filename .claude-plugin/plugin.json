@@ -1,6 +1,6 @@
 {
   "name": "znote",
-  "description": "Zettelkasten-integrated workflows with 16 specialized agents, 4 slash commands, and bundled MCP servers (znote-mcp for knowledge management, anamnesis for code intelligence).",
+  "description": "Zettelkasten-integrated workflows with 15 specialized agents, 4 slash commands, and bundled MCP servers (znote-mcp for knowledge management, anamnesis for code intelligence).",
   "version": "1.1.0",
   "author": {
     "name": "komi"
