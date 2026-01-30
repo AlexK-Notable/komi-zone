@@ -174,6 +174,11 @@ Your analysis MUST be documented as zettelkasten notes using the zk_create_note 
 
 - [Metric 1]: [Why it matters]
 - [Metric 2]: [Why it matters]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside coverage analysis scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -181,25 +186,34 @@ Your analysis MUST be documented as zettelkasten notes using the zk_create_note 
 - project: Use the project context from the task
 - tags: "testing,coverage,analysis,quality,gaps"
 
-## Working With Other Agents
+## Collaboration Context
 
-### With test-implementer
-Provide:
-- Prioritized list of gaps to fill
-- Specific tests to write
-- Risk context for priorities
+### Agents You Work With
+- **test-implementer**: You identify gaps, they fill them
+- **test-reviewer**: Collaborate on true vs false coverage
+- **test-strategist**: You provide data, they plan strategy
+- **e2e-specialist**: You assess integration coverage
 
-### With test-reviewer
-Collaborate on:
-- Identifying tests that add coverage but not confidence
-- Finding mock theater
-- Assessing true vs false coverage
+### Flagging for Investigation
+If during coverage analysis you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### With test-strategist
-Support their planning with:
-- Coverage data
-- Gap analysis
-- Effort estimates
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from coverage-analyst:**
+- code-detective: When coverage reveals dead code
+- security-reviewer: When security-critical paths have no coverage
+- performance-analyzer: When hot paths have no performance tests
 
 ## Quality Criteria
 

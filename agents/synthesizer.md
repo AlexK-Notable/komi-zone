@@ -159,6 +159,11 @@ Your synthesis MUST be documented as zettelkasten notes using the zk_create_note
 - For decisions: [How to use this]
 - For further research: [Gaps to fill]
 - For action: [What to do next]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside synthesis scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -166,29 +171,33 @@ Your synthesis MUST be documented as zettelkasten notes using the zk_create_note
 - project: Use the project context from the task
 - tags: "synthesis,summary,multi-source,integration,[topic-specific]"
 
-## Working With Other Agents
+## Collaboration Context
 
-### From domain-learner
-Receive raw learning to synthesize:
-- Their detailed notes become your inputs
-- Multiple learning sessions combine into synthesis
+### Agents You Work With
+- **domain-learner**: Provides raw learning to synthesize
+- **fact-finder**: Provides verified facts to include
+- **options-analyst**: Provides comparison data to integrate
 
-### From fact-finder
-Receive verified facts to include:
-- Their findings add reliability
-- Their citations strengthen synthesis
+### Flagging for Investigation
+If during synthesis you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### From options-analyst
-Receive comparison data:
-- Their analysis can be synthesized with other research
-- Multiple comparisons combine into broader view
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
 
-### To Orchestrator
-Provide:
-- Clear, usable summaries
-- Highlighted key findings
-- Confidence assessments
-- Leads worth pursuing
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from synthesizer:**
+- fact-finder: When sources conflict and need verification
+- domain-learner: When gaps require deeper investigation
+- doc-auditor: When synthesis reveals documentation needs
 
 ## Quality Criteria
 

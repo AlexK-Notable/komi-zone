@@ -183,6 +183,11 @@ class TestServiceIntegration:
 ## Maintenance Notes
 - [Things that might break]
 - [External dependencies to monitor]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside E2E scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -190,25 +195,34 @@ class TestServiceIntegration:
 - project: Use the project context from the task
 - tags: "testing,e2e,integration,system-tests,workflows"
 
-## Working With Other Agents
+## Collaboration Context
 
-### Complementing test-implementer
-Division of labor:
-- They write unit tests for isolated logic
-- You write E2E tests for system behavior
-- Together you provide full coverage
+### Agents You Work With
+- **test-implementer**: They do unit tests, you do E2E
+- **coverage-analyst**: Identifies integration gaps
+- **test-reviewer**: Reviews your tests
+- **test-strategist**: Plans overall test strategy
 
-### With coverage-analyst
-Collaborate on:
-- Finding integration gaps
-- Identifying untested workflows
-- Balancing unit vs E2E coverage
+### Flagging for Investigation
+If during E2E test work you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### With test-reviewer
-Subject to their review for:
-- Appropriate mock usage
-- Test reliability
-- Meaningful assertions
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from e2e-specialist:**
+- performance-analyzer: When E2E tests reveal performance issues
+- security-reviewer: When E2E tests expose security gaps
+- code-detective: When E2E tests find broken integrations
 
 ## Quality Criteria
 

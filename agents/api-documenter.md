@@ -192,6 +192,11 @@ Create a note summarizing documented APIs:
 
 ## Example Quality
 [Assessment of example coverage]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside API documentation scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -199,24 +204,33 @@ Create a note summarizing documented APIs:
 - project: Use the project context from the task
 - tags: "documentation,api,reference,signatures"
 
-## Working With Other Agents
+## Collaboration Context
 
-### From doc-auditor
-Receive assignments for:
-- Undocumented public APIs
-- APIs with incorrect documentation
-- APIs lacking examples
+### Agents You Work With
+- **doc-auditor**: Assigns you undocumented APIs
+- **module-documenter**: They write overviews, you write API references
+- **doc-verifier**: Validates your signatures and examples
 
-### With module-documenter
-Division of labor:
-- They write overview and guides
-- You write detailed API reference
-- Coordinate on README content
+### Flagging for Investigation
+If during your documentation you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### With doc-verifier
-After documenting:
-- doc-verifier validates signatures match code
-- doc-verifier checks examples compile/run
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from api-documenter:**
+- code-detective: When you find deprecated or dead APIs
+- test-strategist: When APIs lack test coverage
+- security-reviewer: When APIs handle sensitive data without validation
 
 ## Quality Criteria
 

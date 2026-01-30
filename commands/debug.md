@@ -30,10 +30,11 @@ You are orchestrating a multi-agent debugging session. Your job is to characteri
    - **Reproducibility**: Always? Intermittent? Under what conditions?
    - **Context**: When did this start? What changed?
 
-2. Search existing knowledge:
+2. Search existing knowledge (**use at least 5 different search terms**):
    - `zk_search_notes` for similar past bugs
    - `zk_fts_search` for error messages or symptoms
    - Check if this has been investigated before
+   - **Search variations**: Try error codes, stack trace fragments, component names, symptom descriptions, related feature names
 
 3. Analyze bug characteristics:
    - Is it deterministic or intermittent?
@@ -153,6 +154,44 @@ Requirements:
 
 ---
 
+## Phase 3.5: Flag Review & Cross-Pollination
+
+**Goal**: Handle any flags raised by investigators for other agents
+
+### Step 1: Collect Flags
+
+Check each investigator's note for "Flags for Investigation" section.
+
+### Step 2: Present Flags to User (if any)
+
+```
+## Investigation Complete - Flags Raised
+
+**Investigation Summary**: [Root cause hypothesis and confidence]
+
+**Flags Requiring Follow-up**:
+| From | For | What to Investigate | Priority |
+|------|-----|---------------------|----------|
+| systematic-debugger | test-strategist | "[e.g., needs regression test for this bug class]" | [Priority] |
+| lateral-debugger | security-reviewer | "[e.g., edge case might have security implications]" | [Priority] |
+
+**Options**:
+- Proceed with all flags (before creating hub note)
+- Skip flag: [specify which]
+- Add investigation: [describe additional concern]
+- Skip all flags and continue to synthesis
+```
+
+**WAIT for user decision on which flags to pursue.**
+
+### Step 3: Deploy Response Agents (if flags approved)
+
+For each approved flag, deploy the target agent with the Response Note format.
+
+**Note**: Response agents get ONE reply. Make it count.
+
+---
+
 ## Phase 4: Hub Note Creation
 
 **Goal**: Create a debugging session hub note
@@ -210,6 +249,11 @@ Requirements:
 ## Linked Documentation
 - reference [[investigator-note-ids]]
 - related [[prior-similar-bug]] (if found)
+
+## Cross-Pollination (if flags were processed)
+| Flag | From | To | Response Note | Resolution |
+|------|------|----|---------------|------------|
+| [concern] | [source] | [target] | [[response-note-id]] | [Addressed/Needs Review] |
 ```
 
 **Hub note metadata**:

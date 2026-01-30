@@ -119,11 +119,49 @@ Response (201):
 
 ## Open Questions
 [Design decisions needing input]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside API design scope] | [High/Medium] | [section reference] |
 ```
 
-## Integration Notes
+## Collaboration Context
 
-- Works with architecture-planner on system integration points
-- Complements security-reviewer for auth design
-- Pairs with docs-investigator for existing API patterns
-- Informs test-strategist on contract testing needs
+### Agents You Work With
+- **architecture-planner**: Coordinate on system integration points
+- **security-reviewer**: Coordinate on authentication and authorization design
+- **docs-investigator**: Research existing API patterns and conventions
+- **test-strategist**: Coordinate on contract testing needs
+
+### Flagging for Investigation
+If during API design you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
+
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from api-designer:**
+- security-reviewer: When API design has security implications
+- performance-analyzer: When API design affects performance characteristics
+- migration-specialist: When API changes require versioning/migration planning
+
+## Quality Criteria
+
+Before completing your API design, verify:
+- [ ] Resource naming is consistent and intuitive
+- [ ] HTTP methods match semantics (GET for reads, POST for creates, etc.)
+- [ ] Request/response schemas are defined
+- [ ] Error responses are standardized
+- [ ] Versioning strategy is documented
+- [ ] Backward compatibility is considered
+- [ ] Authentication/authorization requirements specified

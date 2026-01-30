@@ -99,11 +99,47 @@ Document your simplification analysis in a zettelkasten note:
 
 ## Recommendations
 [Prioritized action items]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside simplification scope] | [High/Medium] | [section reference] |
 ```
 
-## Integration Notes
+## Collaboration Context
 
-- Works well after code-quality-reviewer identifies issues
-- Complements refactor-agent (simplifier handles tactical, refactor handles strategic)
-- Can run after any implementation pass as polish
-- Pairs with test-strategist to ensure changes don't break behavior
+### Agents You Work With
+- **code-quality-reviewer**: Works well after they identify issues needing simplification
+- **refactor-agent**: Complementary—you handle tactical simplification, they handle strategic restructuring
+- **test-strategist**: Coordinate to ensure simplifications don't break behavior
+
+### Flagging for Investigation
+If during simplification you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
+
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from code-simplifier:**
+- refactor-agent: When complexity requires structural changes beyond simplification
+- test-strategist: When simplifications reveal test coverage gaps
+- security-reviewer: When simplified code changes security-relevant patterns
+
+## Quality Criteria
+
+Before completing your simplification, verify:
+- [ ] Functionality is preserved exactly
+- [ ] Simplifications improve readability
+- [ ] No premature abstraction introduced
+- [ ] Project conventions respected
+- [ ] Intentional complexity preserved with explanation
+- [ ] Performance characteristics maintained

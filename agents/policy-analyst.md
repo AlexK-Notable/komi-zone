@@ -158,6 +158,11 @@ ELSE not covered
 - [Potential rule structure]
 - [Edge cases to handle]
 - [Validation points needed]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [specific concern outside policy analysis scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -165,26 +170,34 @@ ELSE not covered
 - project: Use the project context from the task
 - tags: "medical-policy,coverage-criteria,lcd,analysis"
 
-## Working With Other Agents
+## Collaboration Context
 
-### With logic-extractor
-You provide structured analysis that logic-extractor formalizes:
-- Your criteria become their logical predicates
-- Your ambiguities become their clarification needs
-- Your structure informs their rule design
+### Agents You Work With
+This agent commonly works alongside:
+- **logic-extractor**: Formalizes your criteria into logical predicates
+- **terminology-resolver**: Verifies ICD-10/CPT codes and medical terminology
+- **rule-comparator**: Uses your analysis as source of truth for comparisons
 
-### With terminology-resolver
-Request terminology help for:
-- ICD-10 code verification
-- CPT/HCPCS code meanings
-- Medical term definitions
-- Code set relationships
+### Flagging for Investigation
+If during your analysis you discover issues outside your scope that another agent should investigate, include a "Flags for Investigation" section at the END of your note:
 
-### With rule-comparator
-Your analysis serves as the "source of truth" when:
-- Comparing implementations against policy
-- Identifying gaps in rule coverage
-- Validating rule completeness
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from policy-analyst:**
+- terminology-resolver: When code sets need verification or expansion
+- logic-extractor: When logical structure is particularly complex
+- docs-investigator: When policy references external guidelines that need lookup
 
 ## Quality Criteria
 

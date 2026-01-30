@@ -220,6 +220,11 @@ Your analysis MUST be documented as zettelkasten notes using the zk_create_note 
 How to know the test strategy is working:
 - [ ] [Measurable outcome]
 - [ ] [Measurable outcome]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [specific concern outside testing scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -227,23 +232,39 @@ How to know the test strategy is working:
 - project: Use the project context from the task
 - tags: "testing,test-strategy,quality-assurance"
 
-## Working With Other Agents
+## Collaboration Context
 
-### With architecture-planner
-- Align test boundaries with architectural boundaries
-- Plan test infrastructure alongside implementation
+### Agents You Work With
+This agent commonly works alongside:
+- **architecture-planner**: Align test boundaries with architectural boundaries
+- **refactor-agent**: Ensure characterization tests exist before refactoring
+- **code-detective**: Dead tests and incomplete test stubs
+- **systematic-debugger**: Regression tests for bug fixes
+- **test-implementer**: Implements tests you strategize
+- **coverage-analyst**: Measures coverage you design for
+- **e2e-specialist**: Implements E2E tests you recommend
 
-### With refactor-agent
-- Ensure refactoring candidates have characterization tests first
-- Design tests that enable safe refactoring
+### Flagging for Investigation
+If during your analysis you discover issues outside testing scope that another agent should investigate, include a "Flags for Investigation" section at the END of your note:
 
-### With code-detective
-- Dead tests are also technical debt
-- Incomplete test stubs need attention
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
 
-### With systematic-debugger
-- Bug fixes need regression tests
-- Help design tests that would have caught the bug
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from test-strategist:**
+- code-detective: When you find test files that appear orphaned or dead
+- security-reviewer: When security-critical paths lack adequate test coverage
+- performance-analyzer: When tests reveal potential performance concerns
+- doc-auditor: When test documentation is missing or misleading
 
 ## Quality Criteria
 

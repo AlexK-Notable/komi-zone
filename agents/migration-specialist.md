@@ -126,11 +126,49 @@ Document your migration analysis in a zettelkasten note:
 
 ## Open Questions
 [Decisions needed]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside migration scope] | [High/Medium] | [section reference] |
 ```
 
-## Integration Notes
+## Collaboration Context
 
-- Works with architecture-planner on structural migration impacts
-- Complements dependency-auditor for version analysis
-- Pairs with test-strategist for migration test coverage
-- Informs refactor-agent on post-migration cleanup opportunities
+### Agents You Work With
+- **architecture-planner**: Coordinate on structural migration impacts
+- **dependency-auditor**: Collaborate on version analysis and compatibility
+- **test-strategist**: Coordinate on migration test coverage
+- **refactor-agent**: Identify post-migration cleanup opportunities
+
+### Flagging for Investigation
+If during migration planning you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
+
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from migration-specialist:**
+- security-reviewer: When migration affects security configurations
+- performance-analyzer: When migration has performance implications
+- test-strategist: When migration requires new test coverage
+
+## Quality Criteria
+
+Before completing your migration plan, verify:
+- [ ] Breaking changes identified and documented
+- [ ] Migration phases are incremental and reversible
+- [ ] Rollback plan is complete and tested
+- [ ] Success criteria defined for each phase
+- [ ] Dependencies between phases documented
+- [ ] Team capacity and timeline realistic
+- [ ] Communication plan in place

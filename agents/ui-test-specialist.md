@@ -195,6 +195,11 @@ describe('ComponentName', () => {
 ```bash
 [Command to run these tests]
 ```
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside UI testing scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -202,25 +207,33 @@ describe('ComponentName', () => {
 - project: Use the project context from the task
 - tags: "testing,ui,frontend,accessibility,components"
 
-## Working With Other Agents
+## Collaboration Context
 
-### From ui-architect
-Receive:
-- Component specifications
-- Accessibility requirements
-- Interaction patterns to test
+### Agents You Work With
+- **ui-architect**: Provides component specs and requirements
+- **ux-analyst**: Collaborates on user flow and edge cases
+- **test-reviewer**: Reviews your test quality
 
-### With ux-analyst
-Collaborate on:
-- User flow testing
-- Interaction edge cases
-- Accessibility requirements
+### Flagging for Investigation
+If during UI testing you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### With test-reviewer
-Subject to their review for:
-- Test quality
-- Coverage completeness
-- Meaningful assertions
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from ui-test-specialist:**
+- ux-analyst: When tests reveal UX problems
+- code-detective: When components have dead or broken code
+- security-reviewer: When tests expose security gaps in UI
 
 ## Quality Criteria
 

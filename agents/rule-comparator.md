@@ -173,6 +173,11 @@ Your analysis MUST be documented as zettelkasten notes using the zk_create_note 
 
 - [ ] [Specific verification step]
 - [ ] [Specific verification step]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside comparison scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -180,31 +185,33 @@ Your analysis MUST be documented as zettelkasten notes using the zk_create_note 
 - project: Use the project context from the task
 - tags: "rule-comparison,gap-analysis,policy-validation,coverage-check"
 
-## Working With Other Agents
+## Collaboration Context
 
-### From policy-analyst
-Receive:
-- Structured policy analysis
-- Extracted criteria and conditions
-- Source references
+### Agents You Work With
+- **policy-analyst**: Provides structured policy analysis
+- **logic-extractor**: Provides formal rule specifications
+- **terminology-resolver**: Verifies code sets and terms
 
-### From logic-extractor
-Receive:
-- Formal rule specifications
-- Predicate definitions
-- Expected logical structure
+### Flagging for Investigation
+If during comparison you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### From terminology-resolver
-Request:
-- Code set verification
-- Term clarification
-- Currency validation
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
 
-### To Orchestrator
-Provide:
-- Clear pass/fail assessment
-- Prioritized remediation list
-- Verification checklist
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from rule-comparator:**
+- policy-analyst: When comparison reveals policy ambiguities
+- terminology-resolver: When code sets need verification
+- test-strategist: When rule gaps need regression tests
 
 ## Quality Criteria
 

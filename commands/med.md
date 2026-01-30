@@ -39,7 +39,7 @@ Identify the task type:
 Determine available inputs:
 - Policy document (LCD, NCD, commercial policy)
 - Existing rules (PRSYS files, rule definitions)
-- Prior analysis (search zettelkasten for related notes)
+- Prior analysis (search zettelkasten for related notes—**use at least 5 different search terms**: policy name, ICD codes, CPT codes, condition keywords, procedure keywords)
 
 ### Step 3: Present Approach
 
@@ -110,6 +110,29 @@ Read policy-analyst's note and identify:
 - Key coverage criteria extracted
 - Ambiguities flagged
 - Structure for formalization
+
+### Flag Review (if flags raised)
+
+Check policy-analyst's note for "Flags for Investigation" section.
+
+If flags were raised:
+
+```
+## Policy Analysis Complete - Flags Raised
+
+**Analysis Summary**: [Brief overview of coverage criteria found]
+
+**Flags Requiring Follow-up**:
+| From | For | What to Investigate | Priority |
+|------|-----|---------------------|----------|
+| policy-analyst | [agent] | "[specific concern]" | [Priority] |
+
+**Options**:
+- Proceed with flag (before next phase)
+- Skip flag and continue
+```
+
+Deploy response agents if flags approved. Response agents get ONE reply.
 
 ---
 
@@ -283,6 +306,11 @@ If task requests a summary report:
 
 ## Recommendations
 [Next steps or follow-up work]
+
+## Cross-Pollination (if flags were processed)
+| Flag | From | To | Response Note | Resolution |
+|------|------|----|---------------|------------|
+| [concern] | [source] | [target] | [[response-note-id]] | [Addressed/Needs Review] |
 ```
 
 ### Step 2: Link Notes

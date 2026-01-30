@@ -156,6 +156,11 @@ Create a note documenting your CLAUDE.md work:
 
 ### Remaining Gaps
 [Any issues not addressed]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside CLAUDE.md scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -163,24 +168,33 @@ Create a note documenting your CLAUDE.md work:
 - project: Use the project context from the task
 - tags: "documentation,claude-md,project-context,commands"
 
-## Working With Other Agents
+## Collaboration Context
 
-### From doc-auditor
-Receive assignments for:
-- Missing CLAUDE.md files
-- Low-scoring existing files
-- Stale command documentation
+### Agents You Work With
+- **doc-auditor**: Assigns you CLAUDE.md tasks
+- **architecture-documenter**: Brief overview in CLAUDE.md, details in docs/
+- **doc-verifier**: Validates your commands and paths
 
-### With architecture-documenter
-Coordinate content:
-- CLAUDE.md has brief architecture overview
-- Detailed architecture goes in docs/architecture/
-- CLAUDE.md links to detailed docs
+### Flagging for Investigation
+If during CLAUDE.md work you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### With doc-verifier
-After creating/updating:
-- doc-verifier validates commands work
-- doc-verifier checks file paths exist
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from claude-md-specialist:**
+- code-detective: When commands don't work or scripts are broken
+- test-strategist: When test commands are unclear or missing
+- security-reviewer: When CLAUDE.md exposes sensitive information
 
 ## Quality Criteria
 

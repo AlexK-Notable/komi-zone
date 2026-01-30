@@ -80,6 +80,72 @@ Read the audit note using `zk_get_note` and analyze:
 
 ---
 
+## Phase 1.5: Flag Review & User Approval
+
+**Goal**: Review any flags raised by audit agent and get user approval for follow-up
+
+### Step 1: Check for Flags
+
+After doc-auditor completes, check the note's "Flags for Investigation" section.
+
+### Step 2: Present Flags to User (if any)
+
+If flags were raised:
+
+```
+## Audit Complete - Flags Raised
+
+**Audit Summary**: [Brief overview of documentation health]
+
+**Flags Requiring Follow-up**:
+| From | For | What to Investigate | Priority |
+|------|-----|---------------------|----------|
+| doc-auditor | [agent] | "[specific concern]" | [Priority] |
+
+**Options**:
+- Proceed with all flags
+- Skip flag: [specify which]
+- Add investigation: [describe additional concern]
+- Skip all flags and continue to Phase 2
+```
+
+**WAIT for user confirmation on which flags to pursue.**
+
+### Step 3: Deploy Response Agents (if flags approved)
+
+For each approved flag, deploy the flagged agent:
+
+```
+Respond to flag from doc-auditor in note [[note-id]].
+
+Read the note and locate the flag in "Flags for Investigation" section.
+The specific concern is: "[flag text]"
+
+Create a RESPONSE NOTE using this format:
+
+## Response: [Topic]
+**Responding to**: [[note-id]]
+**Original Flag**: "[flag text]"
+**Flagged by**: doc-auditor
+**Priority**: [from flag]
+
+## Investigation
+[Your analysis of the flagged concern]
+
+## Findings
+[What you discovered]
+
+## Resolution
+- **Status**: [Addressed/Partially Addressed/Needs Human Review]
+- **Action Taken**: [What was done]
+- **Remaining Concerns**: [If any]
+
+Use note_type: "permanent", project: "[project]"
+Return the note ID when complete.
+```
+
+---
+
 ## Phase 2: Planning & Agent Selection
 
 **Goal**: Select appropriate documentation agents and get user approval
@@ -205,6 +271,45 @@ Return the note ID when complete.
 ### Step 2: Deploy Agents
 
 **Launch all documentation agents in parallel** using multiple Task tool calls in a single message.
+
+---
+
+## Phase 3.5: Writer Flag Review
+
+**Goal**: Review any flags raised by documentation writers
+
+### Step 1: Collect Writer Flags
+
+After all writers complete:
+1. Read each writer's note
+2. Extract any "Flags for Investigation" sections
+3. If no flags, proceed to Phase 4
+
+### Step 2: Present Writer Flags to User (if any)
+
+```
+## Documentation Generation Complete - Flags Raised
+
+**Documentation Created**: [Summary of files created/updated]
+
+**Flags Requiring Follow-up**:
+| From | For | What to Investigate | Priority |
+|------|-----|---------------------|----------|
+| [writer] | [agent] | "[specific concern]" | [Priority] |
+
+**Options**:
+- Proceed with all flags (before verification)
+- Skip flags and continue to verification
+- Skip specific flags
+```
+
+**WAIT for user decision.**
+
+### Step 3: Deploy Response Agents (if flags approved)
+
+Deploy flagged agents using the Response Note format (same as Phase 1.5).
+
+**Note**: Response agents get ONE reply. They must make it count.
 
 ---
 

@@ -159,6 +159,11 @@ Create a note summarizing your documentation work:
 
 ## Usage Patterns Found
 [Common patterns observed in codebase]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside documentation scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -166,30 +171,34 @@ Create a note summarizing your documentation work:
 - project: Use the project context from the task
 - tags: "documentation,module,package,readme"
 
-## Working With Other Agents
+## Collaboration Context
 
-### From doc-auditor
-Receive assignments for:
-- Modules lacking README files
-- Outdated module documentation
-- Modules with low documentation coverage
+### Agents You Work With
+- **doc-auditor**: Assigns you modules lacking documentation
+- **architecture-documenter**: They handle system-level, you handle package-level
+- **api-documenter**: They write API references, you write overviews
+- **doc-verifier**: Validates your examples and imports
 
-### With architecture-documenter
-Coordinate on scope:
-- They document system-level concerns
-- You document package-level concerns
-- Link to architecture docs where relevant
+### Flagging for Investigation
+If during your documentation you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### With api-documenter
-Division of labor:
-- You write module overviews and guides
-- They write detailed API references
-- You may both touch the same README
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
 
-### With doc-verifier
-After creating documentation:
-- doc-verifier checks examples work
-- doc-verifier validates imports and signatures
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from module-documenter:**
+- code-detective: When you find dead code or unused exports
+- test-strategist: When module lacks test coverage
+- api-documenter: When APIs need detailed reference docs
 
 ## Quality Criteria
 

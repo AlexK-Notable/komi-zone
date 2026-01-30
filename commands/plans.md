@@ -24,9 +24,10 @@ You are orchestrating a multi-agent implementation planning session. Your job is
 
 **Input**: $ARGUMENTS
 
-1. If input references prior work, search zettelkasten:
+1. If input references prior work, search zettelkasten (**use at least 5 different search terms**):
    - Use `zk_search_notes` or `zk_fts_search` to find relevant notes
    - Read related notes to understand current state
+   - **Search variations**: Try component names, feature keywords, author names, related concepts, error patterns
 2. Review conversation history for additional context
 3. Identify the nature of the planning task:
    - Is this a new feature, refactor, migration, or improvement?
@@ -137,6 +138,72 @@ Requirements:
 
 ---
 
+## Phase 3.5: Flag Review & Cross-Pollination
+
+**Goal**: Handle any flags raised by agents for other agents
+
+### Step 1: Collect Flags
+
+Check each agent's note for "Flags for Investigation" section.
+
+### Step 2: Present Flags to User (if any)
+
+```
+## Planning Analysis Complete - Flags Raised
+
+**Analysis Summary**: [Brief overview of agent findings]
+
+**Flags Requiring Follow-up**:
+| From | For | What to Investigate | Priority |
+|------|-----|---------------------|----------|
+| [agent] | [target-agent] | "[specific concern]" | [Priority] |
+
+**Options**:
+- Proceed with all flags
+- Skip flag: [specify which]
+- Add investigation: [describe]
+- Skip all flags and continue to synthesis
+```
+
+**WAIT for user decision on which flags to pursue.**
+
+### Step 3: Deploy Response Agents (if flags approved)
+
+For each approved flag:
+
+```
+Respond to flag from [source-agent] in note [[note-id]].
+
+Read the note and locate the flag in "Flags for Investigation" section.
+The specific concern is: "[flag text]"
+
+Create a RESPONSE NOTE:
+
+## Response: [Topic]
+**Responding to**: [[note-id]]
+**Original Flag**: "[flag text]"
+**Flagged by**: [source-agent]
+**Priority**: [from flag]
+
+## Investigation
+[Your analysis]
+
+## Findings
+[What you discovered]
+
+## Resolution
+- **Status**: [Addressed/Partially Addressed/Needs Human Review]
+- **Action Taken**: [What was done]
+- **Remaining Concerns**: [If any]
+
+Use note_type: "permanent", project: "[project]"
+Return the note ID when complete.
+```
+
+**Note**: Response agents get ONE reply. Make it count.
+
+---
+
 ## Phase 4: Hub Note Creation
 
 **Goal**: Create a synthesis hub note
@@ -178,6 +245,11 @@ Requirements:
 
 ## Linked Documentation
 - reference [[agent-note-ids]]
+
+## Cross-Pollination (if flags were processed)
+| Flag | From | To | Response Note | Resolution |
+|------|------|----|---------------|------------|
+| [concern] | [source] | [target] | [[response-note-id]] | [Addressed/Needs Review] |
 ```
 
 **Hub note metadata**:

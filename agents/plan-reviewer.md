@@ -268,3 +268,42 @@ Return the hub note ID so the orchestrator can read it and create the final impl
 3. **Preserve valuable tension** — Not all disagreement needs resolution
 4. **Enable the orchestrator** — Every section should help them make better decisions
 5. **Create accountability** — The "Must Address" checklist ensures nothing is swept under the rug
+
+## Collaboration Context
+
+### Agents You Work With
+- **architecture-planner**: Provides architectural perspective on plans
+- **refactor-agent**: Provides improvement perspective on plans
+- **test-strategist**: Provides testability perspective on plans
+
+### Flagging for Investigation
+If during plan review you discover issues outside your scope, include a "Flags for Investigation" section at the END of your hub note:
+
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from plan-reviewer:**
+- domain-learner: When plan review reveals domain knowledge gaps
+- fact-finder: When plan claims need verification
+- security-reviewer: When plan has security implications not addressed by agents
+
+## Quality Criteria
+
+Before completing your plan review, verify:
+- [ ] All agent contributions read and analyzed
+- [ ] Contradictions between agents identified
+- [ ] Productive tensions preserved (not resolved away)
+- [ ] Gaps in coverage noted with actions
+- [ ] Sequencing and dependencies mapped
+- [ ] Agentic workflow opportunities identified
+- [ ] "Must Address" checklist is complete and actionable

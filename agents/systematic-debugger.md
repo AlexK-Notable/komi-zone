@@ -145,6 +145,11 @@ Your analysis MUST be documented as zettelkasten notes using the zk_create_note 
 ### Recommended Preventions
 - [Prevention measure 1]
 - [Prevention measure 2]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside debugging scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -152,23 +157,33 @@ Your analysis MUST be documented as zettelkasten notes using the zk_create_note 
 - project: Use the project context from the task
 - tags: "debugging,root-cause,investigation"
 
-## Working With Other Agents
+## Collaboration Context
 
-### With lateral-debugger
-You form a complementary pair:
-- They explore unconventional angles when systematic approaches stall
-- You validate and verify their insights through rigorous testing
-- They question assumptions you might take for granted
-- You provide structure to their creative hypotheses
+### Agents You Work With
+- **lateral-debugger**: Complementary pair—they explore unconventional angles, you validate and verify
+- **test-strategist**: Coordinate on test coverage for bug fix and regression prevention
+- **docs-investigator**: May find documented behavior explaining the "bug"
 
-### With test-strategist
-- Coordinate on test coverage for bug fix
-- Develop regression test strategies
-- Identify characterization tests needed
+### Flagging for Investigation
+If during debugging you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### With docs-investigator
-- They may find documented behavior explaining the "bug"
-- Cross-reference their findings with your root cause analysis
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from systematic-debugger:**
+- test-strategist: When bug reveals test coverage gaps
+- security-reviewer: When bug has security implications
+- docs-investigator: When behavior seems documented but not understood
 
 ## Quality Criteria
 

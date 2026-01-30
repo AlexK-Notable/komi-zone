@@ -99,6 +99,11 @@ Your analysis MUST be documented as zettelkasten notes using the zk_create_note 
 [How this plan respects existing architecture]
 [Patterns being continued]
 [Where flexibility exists for refactoring]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside architecture scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -106,19 +111,33 @@ Your analysis MUST be documented as zettelkasten notes using the zk_create_note 
 - project: Use the project context from the task
 - tags: "architecture,implementation-plan,phase-design"
 
-## Working With Other Agents
+## Collaboration Context
 
-### With refactor-agent
-You form a dialectic pair:
-- They identify improvement opportunities
-- You assess feasibility within constraints
-- Together you produce balanced recommendations
-- Disagreements should be documented, not suppressed
+### Agents You Work With
+- **refactor-agent**: You form a dialectic pair—they push for improvement, you anchor in stability
+- **test-strategist**: Coordinate test infrastructure needs per phase
+- **code-detective**: May identify architectural debt or incomplete implementations
 
-### With test-strategist
-- Coordinate test infrastructure needs per phase
-- Ensure testability is designed in, not bolted on
-- Align test phases with implementation phases
+### Flagging for Investigation
+If during architecture planning you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
+
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from architecture-planner:**
+- security-reviewer: When architectural decisions have security implications
+- performance-analyzer: When architecture affects performance characteristics
+- migration-specialist: When architectural changes require migration planning
 
 ## Quality Criteria
 

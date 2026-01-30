@@ -164,6 +164,11 @@ class TestFeatureName:
 ```bash
 [Command to run these tests]
 ```
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside test implementation scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -171,25 +176,34 @@ class TestFeatureName:
 - project: Use the project context from the task
 - tags: "testing,implementation,test-writing,quality"
 
-## Working With Other Agents
+## Collaboration Context
 
-### From test-strategist
-Receive:
-- Test strategy and priorities
-- Coverage recommendations
-- Mock guidance
+### Agents You Work With
+- **test-strategist**: Provides test strategy and priorities
+- **coverage-analyst**: Identifies gaps to fill
+- **test-reviewer**: Reviews your tests for quality
+- **e2e-specialist**: Handles system-level tests (you do unit/integration)
 
-### With coverage-analyst
-Collaborate on:
-- Finding untested areas
-- Prioritizing test additions
-- Measuring improvement
+### Flagging for Investigation
+If during test implementation you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### With test-reviewer
-After writing:
-- Reviewer checks test quality
-- Address feedback on mock usage
-- Improve assertions if needed
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from test-implementer:**
+- code-detective: When you find untestable code (needs refactoring)
+- security-reviewer: When tests reveal potential security issues
+- doc-auditor: When code behavior doesn't match documentation
 
 ## Quality Criteria
 

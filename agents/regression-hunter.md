@@ -185,6 +185,11 @@ def test_[scenario]():
 - [Metric to monitor]
 - [Log pattern to watch]
 - [User behavior to observe]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside regression scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -192,25 +197,33 @@ def test_[scenario]():
 - project: Use the project context from the task
 - tags: "testing,regression,change-analysis,prevention"
 
-## Working With Other Agents
+## Collaboration Context
 
-### With test-implementer
-Provide them with:
-- Specific tests to write
-- Scenarios to cover
-- Priority ordering
+### Agents You Work With
+- **test-implementer**: You identify tests needed, they write them
+- **coverage-analyst**: Understanding current coverage
+- **test-reviewer**: Validates test quality
 
-### With coverage-analyst
-Collaborate on:
-- Understanding current coverage
-- Identifying change-specific gaps
-- Measuring coverage improvement
+### Flagging for Investigation
+If during regression analysis you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### With test-reviewer
-After tests are written:
-- Reviewer validates quality
-- Ensures regression risks addressed
-- Confirms test meaningfulness
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from regression-hunter:**
+- security-reviewer: When changes affect security-critical code
+- performance-analyzer: When changes affect performance-critical paths
+- code-detective: When impact analysis reveals dead code
 
 ## Quality Criteria
 

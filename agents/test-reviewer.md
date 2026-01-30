@@ -192,6 +192,11 @@ Your review MUST be documented as zettelkasten notes using the zk_create_note to
 
 - [Question about test intent]
 - [Question about mock choice]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside test review scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -199,25 +204,33 @@ Your review MUST be documented as zettelkasten notes using the zk_create_note to
 - project: Use the project context from the task
 - tags: "testing,review,quality,mock-theater,adversarial"
 
-## Working With Other Agents
+## Collaboration Context
 
-### Reviewing test-implementer
-Check their work for:
-- Mock theater sneaking in
-- Weak assertions
-- Tests that seem good but aren't
+### Agents You Work With
+- **test-implementer**: You review their tests
+- **coverage-analyst**: Collaborate on true vs false coverage
+- **test-strategist**: You inform their quality standards
 
-### With coverage-analyst
-Collaborate on:
-- Identifying "covered but not tested" code
-- Finding areas with false confidence
-- Assessing true coverage quality
+### Flagging for Investigation
+If during your review you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### With test-strategist
-Provide input for:
-- Patterns to avoid
-- Quality standards
-- Test improvement priorities
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from test-reviewer:**
+- code-detective: When tests reveal dead or broken code
+- security-reviewer: When tests expose security gaps
+- performance-analyzer: When tests show performance issues
 
 ## Quality Criteria
 

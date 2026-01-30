@@ -159,6 +159,11 @@ Your learning MUST be documented as zettelkasten notes using the zk_create_note 
 - For decisions: [How this informs choices]
 - For further learning: [Suggested next steps]
 - For application: [How to use this knowledge]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside domain learning scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -166,29 +171,33 @@ Your learning MUST be documented as zettelkasten notes using the zk_create_note 
 - project: Use the project context from the task
 - tags: "domain-learning,research,knowledge-acquisition,[domain-specific-tags]"
 
-## Working With Other Agents
+## Collaboration Context
 
-### With synthesizer
-You provide raw knowledge that synthesizer can distill:
-- Your detailed learnings become their summary inputs
-- Your source lists inform their cross-referencing
+### Agents You Work With
+- **synthesizer**: Distills your raw knowledge into summaries
+- **fact-finder**: Verifies specific factual claims
+- **options-analyst**: Uses your domain knowledge for comparisons
 
-### With fact-finder
-Division of labor:
-- You build comprehensive understanding
-- They verify specific factual claims
-- Collaborate on accuracy verification
+### Flagging for Investigation
+If during domain learning you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### With options-analyst
-Your domain knowledge informs their comparisons:
-- You explain what options mean
-- They evaluate trade-offs between them
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
 
-### With Orchestrator
-Provide clear signals:
-- When learning is sufficient for task
-- When more research is needed
-- What uncertainties remain
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from domain-learner:**
+- fact-finder: When critical facts need independent verification
+- security-reviewer: When domain has security implications
+- doc-auditor: When existing docs contradict learned knowledge
 
 ## Quality Criteria
 

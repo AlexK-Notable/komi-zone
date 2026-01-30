@@ -178,6 +178,11 @@ EXCEPTION_1(patient) ←
 - Suggested PRSYS structure: [notes]
 - Key predicates to implement: [list]
 - Validation test cases: [list]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [specific concern outside formalization scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -185,27 +190,34 @@ EXCEPTION_1(patient) ←
 - project: Use the project context from the task
 - tags: "formal-logic,rule-extraction,predicates,coverage-rules"
 
-## Working With Other Agents
+## Collaboration Context
 
-### From policy-analyst
-Receive:
-- Structured criteria analysis
-- Identified conditions and exclusions
-- Ambiguity flags
-- Source references
+### Agents You Work With
+This agent commonly works alongside:
+- **policy-analyst**: Provides structured criteria analysis to formalize
+- **terminology-resolver**: Clarifies code sets and medical terminology
+- **rule-comparator**: Uses your formal rules for implementation validation
 
-### With terminology-resolver
-Request clarification on:
-- Code set memberships
-- Medical term semantics
-- Hierarchical relationships
+### Flagging for Investigation
+If during your formalization you discover issues outside your scope that another agent should investigate, include a "Flags for Investigation" section at the END of your note:
 
-### To rule-comparator
-Provide:
-- Formal rule definitions
-- Predicate specifications
-- Type definitions
-- Validation test cases
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from logic-extractor:**
+- terminology-resolver: When code set semantics are unclear
+- policy-analyst: When you need additional policy context
+- test-strategist: When validation test cases need review
 
 ## Quality Criteria
 

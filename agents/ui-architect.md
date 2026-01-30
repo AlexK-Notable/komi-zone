@@ -188,6 +188,11 @@ interface ComponentProps {
 - [Technical consideration]
 - [Framework-specific pattern to use]
 - [Potential gotcha]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside UI architecture scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -195,25 +200,33 @@ interface ComponentProps {
 - project: Use the project context from the task
 - tags: "ui,architecture,components,frontend,design"
 
-## Working With Other Agents
+## Collaboration Context
 
-### With ui-test-specialist
-Provide architecture for:
-- Component testing strategy
-- Interaction points to test
-- Accessibility tests needed
+### Agents You Work With
+- **ui-test-specialist**: Provides tests for your architecture
+- **ux-analyst**: Collaborates on user flow and accessibility
+- **test-strategist**: Coordinates frontend testing approach
 
-### With ux-analyst
-Collaborate on:
-- User flow design
-- Interaction patterns
-- Accessibility requirements
+### Flagging for Investigation
+If during UI architecture work you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### With test-strategist
-Coordinate on:
-- Frontend testing approach
-- Integration test boundaries
-- Component vs E2E balance
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from ui-architect:**
+- performance-analyzer: When component architecture has performance implications
+- security-reviewer: When components handle sensitive data
+- api-designer: When component needs API changes
 
 ## Quality Criteria
 

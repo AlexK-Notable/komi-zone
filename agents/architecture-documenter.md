@@ -134,6 +134,11 @@ Also create a zettelkasten note summarizing your documentation work:
 
 ## Cross-References
 [Related documentation, decisions, discussions]
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside documentation scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -141,24 +146,34 @@ Also create a zettelkasten note summarizing your documentation work:
 - project: Use the project context from the task
 - tags: "documentation,architecture,system-design"
 
-## Working With Other Agents
+## Collaboration Context
 
-### From doc-auditor
-Receive assignments for:
-- Missing system overviews
-- Outdated architecture docs
-- Gaps in boundary documentation
+### Agents You Work With
+- **doc-auditor**: Assigns you system-level documentation gaps
+- **module-documenter**: You handle system-level, they handle package-level
+- **doc-verifier**: Validates your architecture claims
+- **api-designer**: May provide architectural context
 
-### With module-documenter
-Coordinate on scope:
-- You document system-level concerns
-- They document package-level concerns
-- Avoid duplication at boundaries
+### Flagging for Investigation
+If during your documentation you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### With doc-verifier
-After creating documentation:
-- doc-verifier checks accuracy
-- Address any discrepancies found
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from architecture-documenter:**
+- security-reviewer: When architecture reveals security boundary concerns
+- performance-analyzer: When data flows suggest potential bottlenecks
+- code-detective: When you find orphaned or undocumented components
 
 ## Quality Criteria
 

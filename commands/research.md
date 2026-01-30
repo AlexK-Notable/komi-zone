@@ -29,10 +29,11 @@ You are conducting a research session with zettelkasten documentation. Your job 
    - What decisions does this research inform?
    - What's the scope boundary?
 
-2. Search existing knowledge:
+2. Search existing knowledge (**use at least 5 different search terms**):
    - `zk_search_notes` for relevant existing notes
    - `zk_fts_search` for specific terms
    - Check if partially answered before
+   - **Search variations**: Try synonyms, related concepts, component names, technology keywords, problem domain terms
 
 3. Assess research characteristics:
    - Is this library/framework documentation lookup?
@@ -148,6 +149,36 @@ Requirements:
 
 ---
 
+## Phase 1.5: Flag Review (Agent-Assisted Only)
+
+**Goal**: Handle any flags raised by research agents
+
+### If Agents Were Used
+
+After agents complete, check each note for "Flags for Investigation" section.
+
+If flags were raised:
+
+```
+## Research Phase Complete - Flags Raised
+
+**Research Summary**: [What was discovered so far]
+
+**Flags Requiring Follow-up**:
+| From | For | What to Investigate | Priority |
+|------|-----|---------------------|----------|
+| [agent] | [target-agent] | "[specific concern]" | [Priority] |
+
+**Options**:
+- Proceed with all flags (before documentation)
+- Skip flag: [specify which]
+- Skip all flags and continue to documentation
+```
+
+**WAIT for user decision.** Deploy response agents if flags approved.
+
+---
+
 ## Phase 2: Documentation
 
 **Goal**: Create permanent record of findings
@@ -228,6 +259,11 @@ reference [[detail-note-id]]
 
 ## Future Research
 [Questions for future investigation]
+
+## Cross-Pollination (if flags were processed)
+| Flag | From | To | Response Note | Resolution |
+|------|------|----|---------------|------------|
+| [concern] | [source] | [target] | [[response-note-id]] | [Addressed/Needs Review] |
 ```
 
 ---

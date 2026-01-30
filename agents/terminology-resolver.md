@@ -155,6 +155,11 @@ For comprehensive terminology analysis:
 - [ ] Descriptions match official descriptions
 - [ ] Relationships accurately documented
 - [ ] Version-specific notes included
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside terminology scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -162,25 +167,33 @@ For comprehensive terminology analysis:
 - project: Use the project context from the task
 - tags: "medical-coding,terminology,icd-10,cpt,hcpcs"
 
-## Working With Other Agents
+## Collaboration Context
 
-### Supporting policy-analyst
-Provide:
-- Code verification for extracted criteria
-- Code set definitions for coverage rules
-- Term definitions for policy language
+### Agents You Work With
+- **policy-analyst**: You verify codes for extracted criteria
+- **logic-extractor**: You provide formal code set definitions
+- **rule-comparator**: You verify code currency and completeness
 
-### Supporting logic-extractor
-Provide:
-- Formal code set definitions (as enumerations)
-- Hierarchical relationships for rule logic
-- Exclusion relationships for exception handling
+### Flagging for Investigation
+If during terminology work you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### Supporting rule-comparator
-Provide:
-- Code currency verification
-- Code set completeness checking
-- Terminology consistency validation
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
+
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from terminology-resolver:**
+- policy-analyst: When terminology reveals policy ambiguities
+- logic-extractor: When code relationships are complex
+- doc-auditor: When terminology docs need updating
 
 ## Quality Criteria
 

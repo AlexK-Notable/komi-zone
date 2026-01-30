@@ -28,10 +28,11 @@ You are orchestrating a multi-agent code review session. Your job is to assess w
    - Specific files/components mentioned?
    - Reference to prior implementation work?
    - Full codebase review?
-2. Search zettelkasten for related context:
+2. Search zettelkasten for related context (**use at least 5 different search terms**):
    - Prior implementation plans
    - Previous review findings
    - Known issues or technical debt
+   - **Search variations**: Try synonyms, component names, error patterns, author terms, date ranges
 3. Analyze the code to understand its characteristics:
    - What domain is it? (API, UI, data processing, etc.)
    - Is it security-sensitive? (auth, payments, user data)
@@ -144,6 +145,73 @@ Requirements:
 
 ---
 
+## Phase 3.5: Flag Review & Cross-Pollination
+
+**Goal**: Handle any flags raised by reviewers for other agents
+
+### Step 1: Collect Flags
+
+Check each reviewer's note for "Flags for Investigation" section.
+
+### Step 2: Present Flags to User (if any)
+
+```
+## Review Analysis Complete - Flags Raised
+
+**Review Summary**: [Brief overview - overall health, critical issues found]
+
+**Flags Requiring Follow-up**:
+| From | For | What to Investigate | Priority |
+|------|-----|---------------------|----------|
+| code-detective | test-strategist | "[specific concern]" | [Priority] |
+| security-reviewer | performance-analyzer | "[specific concern]" | [Priority] |
+
+**Options**:
+- Proceed with all flags (before synthesis)
+- Skip flag: [specify which]
+- Add investigation: [describe additional concern]
+- Skip all flags and continue to synthesis
+```
+
+**WAIT for user decision on which flags to pursue.**
+
+### Step 3: Deploy Response Agents (if flags approved)
+
+For each approved flag:
+
+```
+Respond to flag from [source-reviewer] in note [[note-id]].
+
+Read the note and locate the flag in "Flags for Investigation" section.
+The specific concern is: "[flag text]"
+
+Create a RESPONSE NOTE:
+
+## Response: [Topic]
+**Responding to**: [[note-id]]
+**Original Flag**: "[flag text]"
+**Flagged by**: [source-reviewer]
+**Priority**: [from flag]
+
+## Investigation
+[Your analysis]
+
+## Findings
+[What you discovered]
+
+## Resolution
+- **Status**: [Addressed/Partially Addressed/Needs Human Review]
+- **Action Taken**: [What was done]
+- **Remaining Concerns**: [If any]
+
+Use note_type: "permanent", project: "[project]"
+Return the note ID when complete.
+```
+
+**Note**: Response agents get ONE reply. Make it count.
+
+---
+
 ## Phase 4: Hub Note Creation
 
 **Goal**: Create a review hub note synthesizing all findings
@@ -196,6 +264,11 @@ Requirements:
 
 ## Linked Documentation
 - reference [[reviewer-note-ids]]
+
+## Cross-Pollination (if flags were processed)
+| Flag | From | To | Response Note | Resolution |
+|------|------|----|---------------|------------|
+| [concern] | [source] | [target] | [[response-note-id]] | [Addressed/Needs Review] |
 ```
 
 **Hub note metadata**:

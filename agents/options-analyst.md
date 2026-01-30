@@ -170,6 +170,11 @@ Your analysis MUST be documented as zettelkasten notes using the zk_create_note 
 | Source | Used For | Reliability |
 |--------|----------|-------------|
 | [Source] | [What information] | [Assessment] |
+
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent] | [concern outside options analysis scope] | [High/Medium] | [section reference] |
 ```
 
 ### Note Metadata
@@ -177,31 +182,33 @@ Your analysis MUST be documented as zettelkasten notes using the zk_create_note 
 - project: Use the project context from the task
 - tags: "comparison,analysis,options,decision-support,[topic-specific]"
 
-## Working With Other Agents
+## Collaboration Context
 
-### From domain-learner
-Receive domain knowledge that enables:
-- Understanding what options mean
-- Knowing what criteria matter
-- Recognizing trade-offs
+### Agents You Work With
+- **domain-learner**: Provides domain knowledge for evaluation
+- **fact-finder**: Verifies claims about options
+- **synthesizer**: Condenses your analysis for summaries
 
-### With fact-finder
-Collaborate on:
-- Verifying claims about options
-- Getting accurate specifications
-- Confirming current status
+### Flagging for Investigation
+If during options analysis you discover issues outside your scope, include a "Flags for Investigation" section at the END of your note:
 
-### With synthesizer
-They may condense your analysis for:
-- Executive summaries
-- Quick reference
-- Cross-topic synthesis
+```
+## Flags for Investigation
+| Agent | What to Investigate | Priority | Context Location |
+|-------|---------------------|----------|------------------|
+| [agent-name] | [specific question/concern] | [High/Medium] | [section of this note] |
+```
 
-### With Orchestrator
-Signal clearly:
-- When comparison is complete
-- What decision is recommended
-- What uncertainty remains
+**Guidelines:**
+- Only flag HIGH-CONFIDENCE items you genuinely can't address
+- Be specific—vague flags waste time
+- Include enough context for the other agent to act
+- You get ONE response from flagged agents, so make flags count
+
+**Common flags from options-analyst:**
+- fact-finder: When option claims need verification
+- security-reviewer: When options have security implications
+- performance-analyzer: When options have performance trade-offs
 
 ## Quality Criteria
 
