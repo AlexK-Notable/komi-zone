@@ -48,7 +48,7 @@ claude plugin marketplace remove komi-zone
 
 ## Features
 
-### Slash Commands
+### Slash Commands (6)
 
 | Command | Description |
 |---------|-------------|
@@ -56,8 +56,10 @@ claude plugin marketplace remove komi-zone
 | `/znote:review` | Multi-agent code review with permanent notes |
 | `/znote:debug` | Multi-agent debugging session with documentation |
 | `/znote:research` | Research and knowledge synthesis |
+| `/znote:docs` | Codebase documentation generation with verification |
+| `/znote:med` | Medical policy analysis and rule formalization |
 
-### Specialized Agents (15)
+### Specialized Agents (37)
 
 **Architecture & Design**
 | Agent | Purpose |
@@ -85,6 +87,11 @@ claude plugin marketplace remove komi-zone
 | Agent | Purpose |
 |-------|---------|
 | **test-strategist** | Test architecture and mock auditing |
+| **test-implementer** | Writes high-quality, meaningful tests |
+| **coverage-analyst** | Finds tested vs untested code, blind spots |
+| **test-reviewer** | Adversarial test quality review |
+| **e2e-specialist** | System-level and integration testing |
+| **regression-hunter** | Identifies tests needed after changes |
 
 **Debugging**
 | Agent | Purpose |
@@ -96,6 +103,35 @@ claude plugin marketplace remove komi-zone
 | Agent | Purpose |
 |-------|---------|
 | **docs-investigator** | Checks documentation before assuming bugs are novel |
+| **domain-learner** | Deep dives into topics, builds structured understanding |
+| **options-analyst** | Compares alternatives, evaluates trade-offs |
+| **synthesizer** | Integrates information from multiple sources |
+| **fact-finder** | Strictly factual retrieval, cites sources |
+
+**Documentation**
+| Agent | Purpose |
+|-------|---------|
+| **doc-auditor** | Scans for missing, stale, incorrect docs |
+| **architecture-documenter** | System overviews, boundaries, data flows |
+| **module-documenter** | Package READMEs, module guides |
+| **api-documenter** | Function/class documentation |
+| **doc-verifier** | Cross-checks docs against code |
+| **claude-md-specialist** | CLAUDE.md audit and improvement |
+
+**Medical/Policy**
+| Agent | Purpose |
+|-------|---------|
+| **policy-analyst** | Parses policy documents, extracts criteria |
+| **logic-extractor** | Natural language to formal logic |
+| **terminology-resolver** | Medical coding expertise (ICD-10, CPT) |
+| **rule-comparator** | Compares implementations against policies |
+
+**UI/Frontend**
+| Agent | Purpose |
+|-------|---------|
+| **ui-architect** | Component structure, state management |
+| **ui-test-specialist** | UI testing, interaction, accessibility |
+| **ux-analyst** | User flow analysis, usability |
 
 **Synthesis**
 | Agent | Purpose |
@@ -128,8 +164,8 @@ komi-zone/
 │   ├── marketplace.json          # Marketplace catalog
 │   └── plugin.json               # Plugin manifest
 ├── .mcp.json                     # MCP server configs
-├── agents/                       # 15 specialized agents
-├── commands/                     # 4 slash commands
+├── agents/                       # 37 specialized agents
+├── commands/                     # 6 slash commands
 ├── hooks/                        # Auto-injection hooks
 ├── mcp-servers/
 │   ├── znote-mcp/               # Zettelkasten MCP (submodule)
