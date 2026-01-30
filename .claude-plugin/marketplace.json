@@ -14,8 +14,8 @@
         "source": "url",
         "url": "https://github.com/AlexK-Notable/komi-zone.git"
       },
-      "description": "15 specialized agents, 4 slash commands, and bundled MCP servers for zettelkasten-integrated development workflows",
-      "version": "1.1.0",
+      "description": "37 specialized agents, 6 slash commands, and bundled MCP servers for zettelkasten-integrated development workflows",
+      "version": "1.3.0",
       "strict": true
     }
   ]
