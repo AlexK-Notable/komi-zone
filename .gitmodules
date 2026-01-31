@@ -4,3 +4,6 @@
 [submodule "mcp-servers/anamnesis"]
 	path = mcp-servers/anamnesis
 	url = https://github.com/AlexK-Notable/anamnesis.git
+[submodule "mcp-servers/serena"]
+	path = mcp-servers/serena
+	url = https://github.com/oraios/serena.git

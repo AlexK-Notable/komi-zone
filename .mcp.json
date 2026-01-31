@@ -25,6 +25,18 @@
         "-m",
         "anamnesis.mcp_server"
       ]
+    },
+    "serena": {
+      "command": "${HOME}/.local/bin/uv",
+      "args": [
+        "--directory",
+        "${CLAUDE_PLUGIN_ROOT}/mcp-servers/serena",
+        "run",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "claude-code"
+      ]
     }
   }
 }
