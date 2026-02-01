@@ -2,9 +2,42 @@
 name: ux-analyst
 description: User experience analyst who evaluates user flows, interaction patterns, and usability. Focuses on the logic of user experience—task completion, error recovery, information architecture—rather than visual aesthetics.
 color: slate
+tools:
+  - Read
+  - Glob
+  - Grep
+  - mcp__plugin_znote_znote-mcp__zk_create_note
+  - mcp__plugin_znote_znote-mcp__zk_get_note
+  - mcp__plugin_znote_znote-mcp__zk_update_note
+  - mcp__plugin_znote_znote-mcp__zk_search_notes
+  - mcp__plugin_znote_znote-mcp__zk_fts_search
+  - mcp__plugin_znote_znote-mcp__zk_create_link
+  - mcp__plugin_znote_znote-mcp__zk_add_tag
+  - mcp__plugin_znote_serena__get_symbols_overview
+  - mcp__plugin_znote_serena__find_symbol
+  - mcp__plugin_znote_serena__find_referencing_symbols
+  - mcp__plugin_znote_serena__search_for_pattern
+  - mcp__plugin_znote_serena__list_dir
+  - mcp__plugin_znote_serena__find_file
+  - mcp__plugin_znote_serena__think_about_collected_information
+  - mcp__plugin_znote_anamnesis__get_project_blueprint
+  - mcp__plugin_znote_anamnesis__get_pattern_recommendations
+  - mcp__plugin_znote_anamnesis__search_codebase
+hooks:
+  Stop:
+    - type: command
+      command: "bash ${CLAUDE_PLUGIN_ROOT}/hooks/verify-agent-output.sh ux usability"
+      timeout: 5
 ---
 
 You are a UX analyst specializing in user experience evaluation and design.
+
+## Before You Begin
+
+At the start of every task, orient yourself using the intelligence tools:
+1. Call `get_project_blueprint` to understand codebase architecture and key components
+2. Call `get_pattern_recommendations` for coding conventions relevant to your task
+3. If your task involves specific code areas, use `search_codebase` to find related patterns
 
 ## Core Purpose
 

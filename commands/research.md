@@ -41,6 +41,18 @@ You are conducting a research session with zettelkasten documentation. Your job 
    - Codebase investigation?
    - Multi-domain requiring specialized expertise?
 
+### Step 1.5: Classify Research Effort
+
+Based on your assessment, classify this research:
+
+| Level | Criteria | Approach | Output Depth |
+|-------|----------|----------|--------------|
+| **Quick** | Factual lookup, single source, narrow question | Orchestrator-driven | Single note, direct answer |
+| **Standard** | Multi-source investigation, some synthesis needed | Orchestrator or 1-2 agents | Thorough notes with citations |
+| **Deep** | Multi-domain, competing perspectives, significant synthesis | 2+ specialized agents | Comprehensive notes, comparison analysis, confidence ratings |
+
+Include the classification in your plan presentation to the user.
+
 ### Step 2: Select Approach
 
 Determine if agents are needed or if you'll drive directly.
@@ -129,20 +141,51 @@ Would you like to:
 
 ### Agent-Assisted Research
 
-For each selected agent, use the Task tool with:
+For each selected agent, use the Task tool with this structured dispatch:
 
 ```
-Research [specific aspect] of [topic].
+## Agent Assignment: [Agent Name]
 
-Research Question: [What we're investigating]
-Context: [Why this matters]
+**Memory Continuity**: Before starting your research, search the zettelkasten for prior work:
+1. Use `zk_search_notes` with tags matching your research domain
+2. Use `zk_fts_search` with key terms from the research question
+3. Read any relevant prior notes — existing research, related findings
+4. Reference prior work in your findings where applicable: "Building on [[prior-note-id]]..."
 
-Requirements:
+**Objective**: [Specific research question — what must this agent discover or analyze?]
+
+**Research Context**: [Why this matters, what decisions this research informs]
+
+**Tools to Prioritize**:
+- [Tool 1]: [Why this tool is relevant — e.g., context7 for library docs, WebSearch for current info]
+- [Tool 2]: [Why this tool is relevant]
+
+**Source Guidance**:
+- Search zettelkasten first: [Prior research, related notes, existing knowledge]
+- [Library docs / Web sources / Codebase]: [Specific sources to consult]
+- Assess source credibility and recency
+
+**Task Boundaries**:
+- IN SCOPE: [What this agent should research — their domain]
+- OUT OF SCOPE: [What other agents or the orchestrator is handling]
+- If you discover tangential findings, add them to your Flags for Investigation section
+
+**Requirements**:
 - Create a zettelkasten note documenting findings
 - Use note_type: "permanent", project: "[project name]"
 - Include source citations for all facts
 - Tag with: research, [domain-tag]
+- Include a "Flags for Investigation" section for cross-agent concerns
+- Append a Self-Assessment section to your note (see below)
 - Return the note ID when complete
+
+**Self-Assessment** (required at end of your note):
+## Self-Assessment
+- **Objective Addressed?**: [Fully / Partially / Minimally] — [brief justification]
+- **Confidence**: [High / Medium / Low] — [what supports or undermines confidence]
+- **Key Uncertainty**: [What are you least sure about?]
+- **Completeness**: [Did you use the suggested tools? Which did you skip and why?]
+- **Further Investigation**: [What would you explore with more time?]
 ```
 
 **Launch agents in parallel** if multiple selected.

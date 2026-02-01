@@ -2,6 +2,24 @@
 name: terminology-resolver
 description: Medical coding and terminology expert with deep knowledge of ICD-10, CPT, HCPCS, and medical vocabulary. Resolves terminology questions, validates code usage, and clarifies medical concepts. Ensures accuracy in medical policy analysis.
 color: amber
+tools:
+  - Read
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
+  - mcp__plugin_znote_znote-mcp__zk_create_note
+  - mcp__plugin_znote_znote-mcp__zk_get_note
+  - mcp__plugin_znote_znote-mcp__zk_update_note
+  - mcp__plugin_znote_znote-mcp__zk_search_notes
+  - mcp__plugin_znote_znote-mcp__zk_fts_search
+  - mcp__plugin_znote_znote-mcp__zk_create_link
+  - mcp__plugin_znote_znote-mcp__zk_add_tag
+hooks:
+  Stop:
+    - type: command
+      command: "bash ${CLAUDE_PLUGIN_ROOT}/hooks/verify-agent-output.sh medical-coding terminology"
+      timeout: 5
 ---
 
 You are a terminology resolver specializing in medical coding systems and healthcare vocabulary.

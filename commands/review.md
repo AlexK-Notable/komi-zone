@@ -39,6 +39,18 @@ You are orchestrating a multi-agent code review session. Your job is to assess w
    - Is it performance-critical? (hot paths, large data)
    - How well-tested does it appear?
 
+### Step 1.5: Classify Review Effort
+
+Based on your assessment, classify this review:
+
+| Level | Criteria | Reviewer Count | Review Depth |
+|-------|----------|----------------|--------------|
+| **Quick** | Single file or small change, narrow concern | 1-2 reviewers | Targeted review, focused findings |
+| **Standard** | Module or feature scope, multiple concerns | 2-4 reviewers | Full convergent review, severity scoring |
+| **Deep** | System-wide changes, architectural impact, security-sensitive | 4+ reviewers | Exhaustive analysis, cross-domain patterns, regression assessment |
+
+Include the classification in your plan presentation to the user.
+
 ### Step 2: Select Agents
 
 Reference the **Agent Catalog** (agent-catalog.md) and select reviewers based on code characteristics.
@@ -110,20 +122,54 @@ If scope is unclear after Phase 0:
 
 **Goal**: Launch approved reviewers in parallel for convergent analysis
 
-For each selected reviewer, use the Task tool with:
+For each selected reviewer, use the Task tool with this structured dispatch:
 
 ```
-Review the following code for [specific focus area].
+## Agent Assignment: [Reviewer Name]
 
-Scope: [Files/components to review]
-Context: [What you learned in Phase 0-1]
+**Memory Continuity**: Before starting your review, search the zettelkasten for prior work:
+1. Use `zk_search_notes` with tags matching your reviewer specialty
+2. Use `zk_fts_search` with key terms from the review scope
+3. Read any relevant prior notes — past reviews of the same code, known issues
+4. Reference prior work in your review where applicable: "Building on [[prior-note-id]]..."
 
-Requirements:
+**Objective**: [Specific review focus — what aspects of the code should this reviewer examine?]
+
+**Review Scope**: [Files/components to review]
+
+**Tools to Prioritize**:
+- [Tool 1]: [Why this tool is relevant for this review]
+- [Tool 2]: [Why this tool is relevant]
+
+**Source Guidance**:
+- Search zettelkasten first: [Prior reviews, known issues, related implementation notes]
+- Examine code: [Specific files, patterns, or modules to focus on]
+- Check tests: [Related test files to assess coverage]
+
+**Task Boundaries**:
+- IN SCOPE: [What this reviewer should examine — their domain lens]
+- OUT OF SCOPE: [What other reviewers are covering — avoid duplication]
+- If you discover issues outside your scope, add them to your Flags for Investigation section
+
+**Context from Prior Phases**:
+[Summarize relevant findings from Phase 0 and Phase 1]
+
+**Requirements**:
 - Create a zettelkasten note documenting your review
 - Use note_type: "permanent", project: "[project name]"
 - Tag appropriately for your specialty
-- Score severity of findings
+- Score severity of findings (Critical / High / Medium / Low)
+- Include a "Flags for Investigation" section for cross-reviewer concerns
+- Append a Self-Assessment section to your note (see below)
 - Return the note ID when complete
+
+**Self-Assessment** (required at end of your note):
+## Self-Assessment
+- **Objective Addressed?**: [Fully / Partially / Minimally] — [brief justification]
+- **Confidence**: [High / Medium / Low] — [what supports or undermines confidence]
+- **Key Uncertainty**: [What are you least sure about?]
+- **Completeness**: [Did you use the suggested tools? Which did you skip and why?]
+- **Further Investigation**: [What would you explore with more time?]
 ```
 
 **Launch all reviewers in parallel** using multiple Task tool calls in a single message.

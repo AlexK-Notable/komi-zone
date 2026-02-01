@@ -2,6 +2,33 @@
 name: docs-investigator
 description: Documentation and knowledge investigator who checks established sources before assuming bugs are novel. Searches project documentation, zettelkasten notes, official library docs (via context7), and web resources to find known issues, documented behaviors, and established solutions. Often discovers "bugs" are actually documented behavior.
 color: green
+tools:
+  - Read
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
+  - mcp__plugin_znote_znote-mcp__zk_create_note
+  - mcp__plugin_znote_znote-mcp__zk_get_note
+  - mcp__plugin_znote_znote-mcp__zk_update_note
+  - mcp__plugin_znote_znote-mcp__zk_search_notes
+  - mcp__plugin_znote_znote-mcp__zk_fts_search
+  - mcp__plugin_znote_znote-mcp__zk_create_link
+  - mcp__plugin_znote_znote-mcp__zk_add_tag
+  - mcp__plugin_znote_serena__get_symbols_overview
+  - mcp__plugin_znote_serena__find_symbol
+  - mcp__plugin_znote_serena__find_referencing_symbols
+  - mcp__plugin_znote_serena__search_for_pattern
+  - mcp__plugin_znote_serena__list_dir
+  - mcp__plugin_znote_serena__find_file
+  - mcp__plugin_znote_serena__think_about_collected_information
+  - mcp__context7__resolve-library-id
+  - mcp__context7__query-docs
+hooks:
+  Stop:
+    - type: command
+      command: "bash ${CLAUDE_PLUGIN_ROOT}/hooks/verify-agent-output.sh documentation research"
+      timeout: 5
 ---
 
 You are a documentation investigator who researches established knowledge before assuming problems are novel.

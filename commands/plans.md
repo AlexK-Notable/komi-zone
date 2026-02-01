@@ -34,6 +34,18 @@ You are orchestrating a multi-agent implementation planning session. Your job is
    - What systems/components are involved?
    - What concerns matter most (architecture, testing, security, performance)?
 
+### Step 1.5: Classify Task Effort
+
+Based on your assessment, classify this task:
+
+| Level | Criteria | Agent Count | Output Depth |
+|-------|----------|-------------|--------------|
+| **Quick** | Well-defined scope, single component, clear path forward | 1-2 agents | Concise notes, focused recommendations |
+| **Standard** | Moderate scope, 2-3 components, some design decisions needed | 2-4 agents | Thorough analysis, full phase plans |
+| **Deep** | Broad scope, many components, significant architectural decisions | 4+ agents | Detailed notes with extensive evidence, alternatives explored |
+
+Include the classification in your plan presentation to the user.
+
 ### Step 2: Select Agents
 
 Reference the **Agent Catalog** (agent-catalog.md) and select agents based on task needs.
@@ -105,18 +117,51 @@ Summarize your understanding before deploying agents.
 
 **Goal**: Launch approved agents in parallel
 
-For each selected agent, use the Task tool with:
+For each selected agent, use the Task tool with this structured dispatch:
 
 ```
-Analyze [specific aspect] for this implementation planning task.
+## Agent Assignment: [Agent Name]
 
-Context: [What you learned in Phase 0-1]
+**Memory Continuity**: Before starting your analysis, search the zettelkasten for prior work:
+1. Use `zk_search_notes` with tags matching your agent specialty
+2. Use `zk_fts_search` with key terms from your objective
+3. Read any relevant prior notes to build on previous findings
+4. Reference prior work in your analysis where applicable: "Building on [[prior-note-id]]..."
 
-Requirements:
+**Objective**: [Specific goal — what question must this agent answer?]
+
+**Tools to Prioritize**:
+- [Tool 1]: [Why this tool is relevant for this task]
+- [Tool 2]: [Why this tool is relevant]
+
+**Source Guidance**:
+- Search zettelkasten first: [Specific search terms relevant to this task]
+- Examine code: [Specific files, modules, or patterns to focus on]
+- External sources: [If applicable — documentation, web]
+
+**Task Boundaries**:
+- IN SCOPE: [What this agent should analyze]
+- OUT OF SCOPE: [What other agents are handling — avoid duplication]
+- If you discover issues outside your scope, add them to your Flags for Investigation section
+
+**Context from Prior Phases**:
+[Summarize relevant findings from Phase 0 and Phase 1]
+
+**Requirements**:
 - Create a zettelkasten note documenting your analysis
 - Use note_type: "permanent", project: "[project name]"
 - Tag appropriately for your specialty
+- Include a "Flags for Investigation" section for cross-agent concerns
+- Append a Self-Assessment section to your note (see below)
 - Return the note ID when complete
+
+**Self-Assessment** (required at end of your note):
+## Self-Assessment
+- **Objective Addressed?**: [Fully / Partially / Minimally] — [brief justification]
+- **Confidence**: [High / Medium / Low] — [what supports or undermines confidence]
+- **Key Uncertainty**: [What are you least sure about?]
+- **Completeness**: [Did you use the suggested tools? Which did you skip and why?]
+- **Further Investigation**: [What would you explore with more time?]
 ```
 
 **Launch all agents in parallel** using multiple Task tool calls in a single message.

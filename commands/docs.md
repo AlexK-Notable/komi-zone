@@ -32,6 +32,18 @@ You are orchestrating a multi-agent documentation generation session. Your job i
    - Full codebase documentation audit
    - May take longer, will prioritize findings
 
+### Step 1.5: Classify Documentation Effort
+
+Based on the scope, classify this documentation task:
+
+| Level | Criteria | Agent Count | Output Depth |
+|-------|----------|-------------|--------------|
+| **Quick** | Single module or file, targeted gap | 1-2 agents (audit + 1 writer) | Focused documentation, single output |
+| **Standard** | Subsystem scope, multiple gap types | 2-4 agents (audit + writers + verifier) | Full audit, multi-type documentation |
+| **Deep** | Full codebase, comprehensive coverage target | 4+ agents (audit + all writer types + verifier) | Exhaustive audit, complete documentation suite, full verification |
+
+Include the classification in your plan presentation to the user.
+
 ### Step 2: Initialize MCP Tools
 
 Verify access to:
@@ -210,10 +222,27 @@ For each selected agent, prepare specific assignments based on audit findings:
 
 **architecture-documenter**:
 ```
-Document system architecture for [scope].
+## Agent Assignment: architecture-documenter
 
-Use Serena to understand component relationships.
-Use Anamnesis to get project blueprint.
+**Memory Continuity**: Before starting, search the zettelkasten for prior work:
+1. Use `zk_search_notes` with tags: "documentation", "architecture"
+2. Use `zk_fts_search` with key terms from the scope
+3. Build on any existing documentation notes: "Building on [[prior-note-id]]..."
+
+**Objective**: Document system architecture for [scope] — create/update architecture docs that explain boundaries, data flows, and component relationships.
+
+**Tools to Prioritize**:
+- Serena (get_symbols_overview, find_symbol): Map component relationships and module boundaries
+- Anamnesis (get_project_blueprint): Get high-level architecture context
+
+**Source Guidance**:
+- Search zettelkasten first: Prior architecture notes, implementation plans
+- Examine code: Entry points, module boundaries, dependency patterns
+
+**Task Boundaries**:
+- IN SCOPE: System-level docs, component boundaries, data flows
+- OUT OF SCOPE: API-level docs (api-documenter), module READMEs (module-documenter)
+- If you discover gaps outside your scope, add them to your Flags for Investigation section
 
 Create/update:
 - docs/architecture/[relevant-file].md
@@ -221,50 +250,105 @@ Create/update:
 - Component boundaries and data flows
 
 Create a zettelkasten note summarizing your work.
+Append a Self-Assessment: Objective Addressed? (Fully/Partially/Minimally), Confidence (High/Medium/Low), Key Uncertainty, Completeness, Further Investigation.
 Return the note ID when complete.
 ```
 
 **module-documenter**:
 ```
-Document the following modules: [list from audit]
+## Agent Assignment: module-documenter
 
-Use Serena get_symbols_overview for each module.
-Use Anamnesis for pattern context.
+**Memory Continuity**: Before starting, search the zettelkasten for prior work:
+1. Use `zk_search_notes` with tags: "documentation", "module"
+2. Use `zk_fts_search` with module names from the assignment
+3. Build on any existing module documentation notes: "Building on [[prior-note-id]]..."
+
+**Objective**: Document the following modules: [list from audit] — create/update READMEs that explain purpose, exports, dependencies, and usage examples.
+
+**Tools to Prioritize**:
+- Serena (get_symbols_overview): Inventory module exports and structure
+- Anamnesis (get_pattern_recommendations): Understand conventions for documentation
+
+**Source Guidance**:
+- Search zettelkasten first: Prior module documentation, related implementation notes
+- Examine code: Module entry points, public API surface, usage patterns
+
+**Task Boundaries**:
+- IN SCOPE: Module-level READMEs, package guides
+- OUT OF SCOPE: System architecture (architecture-documenter), API reference (api-documenter)
+- If you discover gaps outside your scope, add them to your Flags for Investigation section
 
 Create/update:
 - [module]/README.md for each module
 - Include: purpose, exports, dependencies, examples
 
 Create a zettelkasten note summarizing your work.
+Append a Self-Assessment: Objective Addressed? (Fully/Partially/Minimally), Confidence (High/Medium/Low), Key Uncertainty, Completeness, Further Investigation.
 Return the note ID when complete.
 ```
 
 **api-documenter**:
 ```
-Document APIs in: [files from audit]
+## Agent Assignment: api-documenter
 
-Use Serena find_symbol for exact signatures.
-Use Anamnesis for usage patterns.
+**Memory Continuity**: Before starting, search the zettelkasten for prior work:
+1. Use `zk_search_notes` with tags: "documentation", "api"
+2. Use `zk_fts_search` with API names and module names from the assignment
+3. Build on any existing API documentation notes: "Building on [[prior-note-id]]..."
+
+**Objective**: Document APIs in: [files from audit] — create precise function signatures, parameter docs, return values, and usage examples.
+
+**Tools to Prioritize**:
+- Serena (find_symbol, find_referencing_symbols): Get exact signatures and usage examples
+- Anamnesis (search_codebase): Find usage patterns across the codebase
+
+**Source Guidance**:
+- Search zettelkasten first: Prior API documentation, related design notes
+- Examine code: Function signatures, type definitions, existing docstrings, test files for examples
+
+**Task Boundaries**:
+- IN SCOPE: Function/class-level documentation, API reference
+- OUT OF SCOPE: System architecture (architecture-documenter), module guides (module-documenter)
+- If you discover gaps outside your scope, add them to your Flags for Investigation section
 
 Create/update:
 - Docstrings in source files, OR
 - docs/api/[module].md reference files
 
 Create a zettelkasten note summarizing your work.
+Append a Self-Assessment: Objective Addressed? (Fully/Partially/Minimally), Confidence (High/Medium/Low), Key Uncertainty, Completeness, Further Investigation.
 Return the note ID when complete.
 ```
 
 **claude-md-specialist**:
 ```
-Audit and improve CLAUDE.md files.
+## Agent Assignment: claude-md-specialist
 
-Use Serena to verify file structure claims.
-Use Anamnesis to confirm patterns and commands.
+**Memory Continuity**: Before starting, search the zettelkasten for prior work:
+1. Use `zk_search_notes` with tags: "documentation", "claude-md"
+2. Use `zk_fts_search` with "CLAUDE.md" and project names
+3. Build on any existing CLAUDE.md audit notes: "Building on [[prior-note-id]]..."
+
+**Objective**: Audit and improve CLAUDE.md files — ensure they accurately reflect commands, architecture, patterns, and conventions.
+
+**Tools to Prioritize**:
+- Serena (get_symbols_overview, list_dir): Verify file structure and module claims
+- Anamnesis (get_project_blueprint, get_pattern_recommendations): Confirm patterns and conventions
+
+**Source Guidance**:
+- Search zettelkasten first: Prior CLAUDE.md audits, project documentation notes
+- Examine code: Actual commands, build processes, test runners, project structure
+
+**Task Boundaries**:
+- IN SCOPE: CLAUDE.md files, project context for Claude Code sessions
+- OUT OF SCOPE: Architecture docs, module READMEs, API reference
+- If you discover gaps outside your scope, add them to your Flags for Investigation section
 
 Apply quality rubric (commands, architecture, patterns, conciseness, currency, actionability).
 
 Create/update CLAUDE.md files as needed.
 Create a zettelkasten note with quality scores and changes.
+Append a Self-Assessment: Objective Addressed? (Fully/Partially/Minimally), Confidence (High/Medium/Low), Key Uncertainty, Completeness, Further Investigation.
 Return the note ID when complete.
 ```
 
@@ -429,7 +513,7 @@ Present to user:
 - `get_symbols_overview`: Inventory module exports
 - `find_symbol`: Get exact function signatures
 - `find_referencing_symbols`: Find usage examples
-- `read_file`: Check existing docs
+- `Read`: Check existing docs
 - `list_dir`: Map directory structure
 
 ### Anamnesis Tools

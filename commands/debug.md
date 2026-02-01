@@ -42,6 +42,18 @@ You are orchestrating a multi-agent debugging session. Your job is to characteri
    - Is it potentially a known library/framework issue?
    - Are there test gaps that should have caught this?
 
+### Step 1.5: Classify Investigation Effort
+
+Based on your assessment, classify this investigation:
+
+| Level | Criteria | Investigator Count | Investigation Depth |
+|-------|----------|-------------------|---------------------|
+| **Quick** | Reproducible bug, narrow scope, likely single cause | 1-2 investigators | Targeted investigation, direct fix |
+| **Standard** | Intermittent or multi-component, several hypotheses | 2-3 investigators | Systematic investigation, hypothesis testing |
+| **Deep** | Systemic issue, multiple possible root causes, architectural implications | 3+ investigators | Exhaustive analysis, cross-domain exploration, prevention measures |
+
+Include the classification in your plan presentation to the user.
+
 ### Step 2: Select Agents
 
 Reference the **Agent Catalog** (agent-catalog.md) and select investigators based on bug characteristics.
@@ -115,24 +127,57 @@ If bug details are incomplete:
 
 **Goal**: Launch approved investigators in parallel
 
-For each selected investigator, use the Task tool with:
+For each selected investigator, use the Task tool with this structured dispatch:
 
 ```
-Investigate this bug using [your specific approach].
+## Agent Assignment: [Investigator Name]
 
-Bug Profile:
+**Memory Continuity**: Before starting your investigation, search the zettelkasten for prior work:
+1. Use `zk_search_notes` with tags matching your investigator specialty (e.g., "debugging", "root-cause")
+2. Use `zk_fts_search` with key terms from the bug profile — error messages, component names
+3. Read any relevant prior notes — past bugs in the same area, related investigations
+4. Reference prior work in your investigation where applicable: "Building on [[prior-note-id]]..."
+
+**Objective**: [Specific investigation angle — what hypothesis or approach should this investigator pursue?]
+
+**Bug Profile**:
 - Symptom: [What's happening]
 - Expected: [What should happen]
 - Reproducibility: [Conditions]
 - Context: [When it started, what changed]
 
-Scope: [Files/components likely involved]
+**Tools to Prioritize**:
+- [Tool 1]: [Why this tool is relevant for this investigation]
+- [Tool 2]: [Why this tool is relevant]
 
-Requirements:
+**Source Guidance**:
+- Search zettelkasten first: [Prior bugs, related components, known issues]
+- Examine code: [Files/components likely involved, specific functions to trace]
+- Test evidence: [Relevant test files, failing test output]
+
+**Task Boundaries**:
+- IN SCOPE: [What this investigator should explore — their approach angle]
+- OUT OF SCOPE: [What other investigators are covering — avoid duplication]
+- If you discover issues outside your scope, add them to your Flags for Investigation section
+
+**Context from Prior Phases**:
+[Summarize relevant findings from Phase 0 and Phase 1]
+
+**Requirements**:
 - Create a zettelkasten note documenting your investigation
 - Use note_type: "permanent", project: "[project name]"
 - Tag with: debugging, investigation, [approach-tag]
+- Include a "Flags for Investigation" section for cross-investigator concerns
+- Append a Self-Assessment section to your note (see below)
 - Return the note ID when complete
+
+**Self-Assessment** (required at end of your note):
+## Self-Assessment
+- **Objective Addressed?**: [Fully / Partially / Minimally] — [brief justification]
+- **Confidence**: [High / Medium / Low] — [what supports or undermines confidence]
+- **Key Uncertainty**: [What are you least sure about?]
+- **Completeness**: [Did you use the suggested tools? Which did you skip and why?]
+- **Further Investigation**: [What would you explore with more time?]
 ```
 
 **Launch all investigators in parallel** using multiple Task tool calls in a single message.

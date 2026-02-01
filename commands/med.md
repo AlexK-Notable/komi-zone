@@ -34,6 +34,18 @@ Identify the task type:
 | "what's missing" / "validate" | Gap Analysis | rule-comparator |
 | "formalize" / "create rules" | Full Pipeline | all agents |
 
+### Step 1.5: Classify Analysis Effort
+
+Based on the task type and inputs, classify this analysis:
+
+| Level | Criteria | Agent Count | Output Depth |
+|-------|----------|-------------|--------------|
+| **Quick** | Single policy check, code verification, narrow question | 1 agent | Targeted analysis, direct answer |
+| **Standard** | Full policy analysis or rule extraction, moderate complexity | 1-2 agents (sequential) | Thorough analysis with traceability |
+| **Deep** | Full pipeline (analysis → extraction → comparison), complex policy | 3-4 agents (full pipeline) | Comprehensive formal specifications, gap analysis, rule generation |
+
+Include the classification in your approach presentation to the user.
+
 ### Step 2: Identify Inputs
 
 Determine available inputs:
@@ -82,12 +94,32 @@ Would you like to:
 
 ### Deploy policy-analyst
 
-Use the Task tool:
+Use the Task tool with this structured dispatch:
 
 ```
-Analyze the following medical policy document:
+## Agent Assignment: policy-analyst
+
+**Memory Continuity**: Before starting, search the zettelkasten for prior work:
+1. Use `zk_search_notes` with tags: "medical-policy", "coverage-criteria"
+2. Use `zk_fts_search` with policy name, condition keywords, and relevant ICD/CPT codes
+3. Build on any existing policy analyses: "Building on [[prior-note-id]]..."
+
+**Objective**: Analyze the following medical policy document — extract all coverage criteria, logical structure, and ambiguities with full traceability to source sections.
 
 [Policy content or reference]
+
+**Tools to Prioritize**:
+- Zettelkasten (zk_search_notes, zk_fts_search): Search for prior analyses of this policy or related policies
+- WebSearch: If needed to clarify policy context or find related guidance
+
+**Source Guidance**:
+- Search zettelkasten first: Prior policy analyses, related coverage criteria, ICD/CPT code sets
+- Reference the policy document directly for all claims
+
+**Task Boundaries**:
+- IN SCOPE: Coverage criteria extraction, logical structure, ambiguity identification
+- OUT OF SCOPE: Code verification (terminology-resolver), formal logic (logic-extractor), rule comparison (rule-comparator)
+- If you discover issues outside your scope, add them to your Flags for Investigation section
 
 Extract:
 - Covered indications with ICD-10 codes
@@ -101,6 +133,7 @@ Maintain traceability to source sections.
 
 Create a zettelkasten note with your analysis.
 Use tags: "medical-policy,coverage-criteria,lcd,analysis"
+Append a Self-Assessment: Objective Addressed? (Fully/Partially/Minimally), Confidence (High/Medium/Low), Key Uncertainty, Completeness, Further Investigation.
 Return the note ID when complete.
 ```
 
@@ -148,9 +181,25 @@ Deploy response agents if flags approved. Response agents get ONE reply.
 ### Deploy terminology-resolver
 
 ```
-Resolve the following medical terminology/coding questions:
+## Agent Assignment: terminology-resolver
+
+**Memory Continuity**: Before starting, search the zettelkasten for prior work:
+1. Use `zk_search_notes` with tags: "medical-coding", "terminology"
+2. Use `zk_fts_search` with specific codes and medical terms from the questions
+3. Build on any existing terminology resolutions: "Building on [[prior-note-id]]..."
+
+**Objective**: Resolve the following medical terminology/coding questions — verify all codes are valid, current, and match policy intent.
 
 [Questions from policy analysis]
+
+**Tools to Prioritize**:
+- Zettelkasten (zk_search_notes): Prior terminology resolutions, code set notes
+- WebSearch: Current ICD-10/CPT code databases and guidelines
+
+**Task Boundaries**:
+- IN SCOPE: Code verification, terminology clarification, code set completeness
+- OUT OF SCOPE: Policy structure (policy-analyst), formal logic (logic-extractor)
+- If you discover issues outside your scope, add them to your Flags for Investigation section
 
 Verify:
 - ICD-10 codes are valid and current
@@ -160,6 +209,7 @@ Verify:
 
 Create a zettelkasten note with your findings.
 Use tags: "medical-coding,terminology,icd-10,cpt"
+Append a Self-Assessment: Objective Addressed? (Fully/Partially/Minimally), Confidence (High/Medium/Low), Key Uncertainty, Completeness, Further Investigation.
 Return the note ID when complete.
 ```
 
@@ -177,9 +227,25 @@ Return the note ID when complete.
 ### Deploy logic-extractor
 
 ```
-Formalize the following policy criteria into logical structures:
+## Agent Assignment: logic-extractor
+
+**Memory Continuity**: Before starting, search the zettelkasten for prior work:
+1. Use `zk_search_notes` with tags: "formal-logic", "rule-extraction"
+2. Use `zk_fts_search` with predicate names or policy keywords
+3. Build on any existing formal specifications: "Building on [[prior-note-id]]..."
+
+**Objective**: Formalize the following policy criteria into precise logical structures — transform natural language rules into unambiguous predicates and rule expressions.
 
 Policy Analysis: [[note-id from policy-analyst]]
+
+**Tools to Prioritize**:
+- Zettelkasten (zk_get_note): Read the policy-analyst's note for source material
+- Zettelkasten (zk_search_notes): Find prior formal logic extractions for pattern reference
+
+**Task Boundaries**:
+- IN SCOPE: Predicate definitions, formal rule expressions, type definitions, ambiguity resolution
+- OUT OF SCOPE: Policy parsing (policy-analyst), code verification (terminology-resolver), rule comparison (rule-comparator)
+- If you discover issues outside your scope, add them to your Flags for Investigation section
 
 Create:
 - Predicate definitions with types
@@ -193,6 +259,7 @@ Resolve ambiguities explicitly (document interpretation choices).
 
 Create a zettelkasten note with formal specifications.
 Use tags: "formal-logic,rule-extraction,predicates,coverage-rules"
+Append a Self-Assessment: Objective Addressed? (Fully/Partially/Minimally), Confidence (High/Medium/Low), Key Uncertainty, Completeness, Further Investigation.
 Return the note ID when complete.
 ```
 
@@ -210,11 +277,28 @@ Return the note ID when complete.
 ### Deploy rule-comparator
 
 ```
-Compare the following against source policy:
+## Agent Assignment: rule-comparator
+
+**Memory Continuity**: Before starting, search the zettelkasten for prior work:
+1. Use `zk_search_notes` with tags: "rule-comparison", "gap-analysis"
+2. Use `zk_fts_search` with rule names or policy identifiers
+3. Build on any existing comparison results: "Building on [[prior-note-id]]..."
+
+**Objective**: Compare implemented rules against source policy — identify gaps, discrepancies, and missing coverage.
 
 Policy Analysis: [[note-id]]
 Formal Logic: [[note-id if available]]
 Implementation: [Rules/files to compare]
+
+**Tools to Prioritize**:
+- Zettelkasten (zk_get_note): Read policy analysis and logic extraction notes
+- Code exploration (Read, Grep, Glob): Examine rule implementation files
+- Zettelkasten (zk_search_notes): Prior comparison results for pattern reference
+
+**Task Boundaries**:
+- IN SCOPE: Rule-to-policy comparison, gap identification, discrepancy reporting
+- OUT OF SCOPE: Policy parsing (policy-analyst), formal logic (logic-extractor), code verification (terminology-resolver)
+- If you discover issues outside your scope, add them to your Flags for Investigation section
 
 Identify:
 - Missing rules (policy not implemented)
@@ -224,6 +308,7 @@ Identify:
 
 Create a zettelkasten note with comparison results.
 Use tags: "rule-comparison,gap-analysis,policy-validation"
+Append a Self-Assessment: Objective Addressed? (Fully/Partially/Minimally), Confidence (High/Medium/Low), Key Uncertainty, Completeness, Further Investigation.
 Return the note ID when complete.
 ```
 

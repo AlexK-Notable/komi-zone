@@ -104,13 +104,6 @@ This catalog describes all available agents for znote workflows. Use this to sel
 | **ux-analyst** | User flow analysis, interaction patterns, usability | UX evaluation and improvement |
 
 ### Synthesis
-*For multi-agent coordination and integration*
-
-| Agent | Purpose | Good For |
-|-------|---------|----------|
-| **plan-reviewer** | Reviews multi-agent plans for coherence, feasibility, gaps | Planning synthesis, plan validation |
-
-### Synthesis
 *For plan validation and coherence checking*
 
 | Agent | Purpose | Good For |
