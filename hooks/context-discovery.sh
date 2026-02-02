@@ -1,7 +1,8 @@
 #!/bin/bash
 # context-discovery.sh — Auto-discovers installed MCP servers, commands, skills, and agents
 # Fires on SessionStart (startup|resume|clear|compact)
-# Generates a dynamic tools reference injected into session context
+# Generates a dynamic tools reference in TOON (Token Oriented Object Notation) format
+# for token-efficient context injection.
 #
 # Test standalone:
 #   echo '{"session_id":"test","cwd":"/home/komi/repos/komi-zone"}' | bash hooks/context-discovery.sh
@@ -25,7 +26,7 @@ fi
 
 # ── Collect MCP Servers ──────────────────────────────────────────────
 
-mcp_lines=""
+mcp_toon_rows=""
 mcp_count=0
 declare -A seen_servers  # server_name -> 1 (for deduplication)
 
@@ -62,7 +63,7 @@ for plugin_name in "${!plugin_paths[@]}"; do
     while IFS= read -r server; do
       if [[ -n "$server" && -z "${seen_servers[$server]+x}" ]]; then
         seen_servers["$server"]=1
-        mcp_lines+="| ${server} | ${plugin_name} |"$'\n'
+        mcp_toon_rows+="  ${server},${plugin_name}"$'\n'
         ((mcp_count++)) || true
       fi
     done <<< "$servers"
@@ -76,7 +77,7 @@ for plugin_name in "${!plugin_paths[@]}"; do
       # Only add if not already found via .mcp.json
       if [[ -z "${seen_servers[$srv_name]+x}" ]]; then
         seen_servers["$srv_name"]=1
-        mcp_lines+="| ${srv_name} | ${plugin_name} (bundled) |"$'\n'
+        mcp_toon_rows+="  ${srv_name},${plugin_name} (bundled)"$'\n'
         ((mcp_count++)) || true
       fi
     done
@@ -87,7 +88,7 @@ done
 user_mcp=$(jq -r '.mcpServers // {} | keys[]' "$SETTINGS_FILE" 2>/dev/null || echo "")
 while IFS= read -r server; do
   if [[ -n "$server" ]]; then
-    mcp_lines+="| ${server} | user-configured |"$'\n'
+    mcp_toon_rows+="  ${server},user-configured"$'\n'
     ((mcp_count++)) || true
   fi
 done <<< "$user_mcp"
@@ -97,7 +98,7 @@ if [[ -n "$cwd" && -f "${cwd}/.mcp.json" ]]; then
   project_mcp=$(jq -r '.mcpServers // {} | keys[]' "${cwd}/.mcp.json" 2>/dev/null || echo "")
   while IFS= read -r server; do
     if [[ -n "$server" ]]; then
-      mcp_lines+="| ${server} | project |"$'\n'
+      mcp_toon_rows+="  ${server},project"$'\n'
       ((mcp_count++)) || true
     fi
   done <<< "$project_mcp"
@@ -105,7 +106,7 @@ fi
 
 # ── Collect Commands (slash commands) ────────────────────────────────
 
-cmd_lines=""
+cmd_toon_rows=""
 cmd_count=0
 
 for plugin_name in "${!plugin_paths[@]}"; do
@@ -117,11 +118,12 @@ for plugin_name in "${!plugin_paths[@]}"; do
       cmd_name=$(basename "$cmd_file" .md)
       # Extract description from frontmatter, strip surrounding quotes
       desc=$(sed -n '/^---$/,/^---$/{ /^description:/{ s/^description: *//; s/^["'"'"']//; s/["'"'"']$//; p; q; } }' "$cmd_file" 2>/dev/null || echo "")
-      # Truncate long descriptions
+      # Truncate long descriptions and replace commas with semicolons for TOON compatibility
       if [[ ${#desc} -gt 60 ]]; then
         desc="${desc:0:57}..."
       fi
-      cmd_lines+="| /${plugin_name}:${cmd_name} | ${desc} |"$'\n'
+      desc="${desc//,/;}"
+      cmd_toon_rows+="  /${plugin_name}:${cmd_name},${desc}"$'\n'
       ((cmd_count++)) || true
     done
   fi
@@ -154,7 +156,7 @@ if [[ -d "${CLAUDE_DIR}/skills" ]]; then
   skill_count=$((skill_count + count))
 fi
 
-# ── Format Output ────────────────────────────────────────────────────
+# ── Format Output (TOON) ────────────────────────────────────────────
 
 output=""
 
@@ -166,18 +168,16 @@ output+=$'\n'"━━━━━━━━━━━━━━━━━━━━━━
 output+="Available Tools (Auto-Discovered)"$'\n'
 output+="━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"$'\n'
 
-if [[ -n "$mcp_lines" ]]; then
-  output+=$'\n'"## MCP Servers (${mcp_count})"$'\n'
-  output+="| Server | Source |"$'\n'
-  output+="|--------|--------|"$'\n'
-  output+="${mcp_lines}"
+if [[ -n "$mcp_toon_rows" ]]; then
+  output+=$'\n'"## MCP Servers"$'\n'
+  output+="mcp_servers[${mcp_count}]{name,source}:"$'\n'
+  output+="${mcp_toon_rows}"
 fi
 
-if [[ -n "$cmd_lines" ]]; then
-  output+=$'\n'"## Commands (${cmd_count})"$'\n'
-  output+="| Command | Description |"$'\n'
-  output+="|---------|-------------|"$'\n'
-  output+="${cmd_lines}"
+if [[ -n "$cmd_toon_rows" ]]; then
+  output+=$'\n'"## Commands"$'\n'
+  output+="commands[${cmd_count}]{command,description}:"$'\n'
+  output+="${cmd_toon_rows}"
 fi
 
 summary_parts=()

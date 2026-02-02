@@ -38,11 +38,10 @@ You are orchestrating a multi-agent implementation planning session. Your job is
 
 Based on your assessment, classify this task:
 
-| Level | Criteria | Agent Count | Output Depth |
-|-------|----------|-------------|--------------|
-| **Quick** | Well-defined scope, single component, clear path forward | 1-2 agents | Concise notes, focused recommendations |
-| **Standard** | Moderate scope, 2-3 components, some design decisions needed | 2-4 agents | Thorough analysis, full phase plans |
-| **Deep** | Broad scope, many components, significant architectural decisions | 4+ agents | Detailed notes with extensive evidence, alternatives explored |
+effort_levels[3]{level,criteria,agent_count,output_depth}:
+  Quick,Well-defined scope; single component; clear path forward,1-2 agents,Concise notes; focused recommendations
+  Standard,Moderate scope; 2-3 components; some design decisions needed,2-4 agents,Thorough analysis; full phase plans
+  Deep,Broad scope; many components; significant architectural decisions,4+ agents,Detailed notes with extensive evidence; alternatives explored
 
 Include the classification in your plan presentation to the user.
 
@@ -52,16 +51,15 @@ Reference the **Agent Catalog** (agent-catalog.md) and select agents based on ta
 
 **For implementation planning, consider:**
 
-| Agent | Consider When |
-|-------|---------------|
-| architecture-planner | Almost always—structural planning is core to implementation |
-| refactor-agent | Improving existing code, technical debt concerns |
-| api-designer | Designing APIs, integration points |
-| migration-specialist | Upgrading frameworks, major version changes |
-| test-strategist | Test coverage is a concern, TDD approach desired |
-| security-reviewer | Auth flows, data handling, security-sensitive features |
-| performance-analyzer | Performance-critical paths, scaling concerns |
-| dependency-auditor | Adding/updating dependencies |
+agent_considerations[8]{agent,consider_when}:
+  architecture-planner,Almost always — structural planning is core to implementation
+  refactor-agent,Improving existing code; technical debt concerns
+  api-designer,Designing APIs; integration points
+  migration-specialist,Upgrading frameworks; major version changes
+  test-strategist,Test coverage is a concern; TDD approach desired
+  security-reviewer,Auth flows; data handling; security-sensitive features
+  performance-analyzer,Performance-critical paths; scaling concerns
+  dependency-auditor,Adding/updating dependencies
 
 **Selection guidelines:**
 - 2-4 agents is typical for planning tasks
@@ -78,10 +76,10 @@ Before proceeding, present your proposed approach:
 **Task Understanding**: [1-2 sentence summary of what you understand]
 
 **Proposed Agent Team**:
-| Agent | Role in This Task |
-|-------|-------------------|
-| [agent] | [what they'll focus on] |
-| ... | ... |
+agent_team[N]{agent,role_in_this_task}:
+  [agent],[what they'll focus on]
+  ...,...
+
 
 **Why This Team**: [Brief reasoning]
 
@@ -199,9 +197,8 @@ Check each agent's note for "Flags for Investigation" section.
 **Analysis Summary**: [Brief overview of agent findings]
 
 **Flags Requiring Follow-up**:
-| From | For | What to Investigate | Priority |
-|------|-----|---------------------|----------|
-| [agent] | [target-agent] | "[specific concern]" | [Priority] |
+flags[N]{from,for,what_to_investigate,priority}:
+  [agent],[target-agent],[specific concern],[Priority]
 
 **Options**:
 - Proceed with all flags
@@ -261,9 +258,8 @@ Return the note ID when complete.
 
 ## Agent Analysis Summary
 
-| Agent | Focus | Key Recommendations | Note |
-|-------|-------|--------------------|----|
-| [agent] | [focus] | [Brief summary] | reference [[note-id]] |
+agent_analysis[N]{agent,focus,key_recommendations,note}:
+  [agent],[focus],[Brief summary],reference [[note-id]]
 
 ## Synthesized Implementation Plan
 
@@ -274,9 +270,8 @@ Return the note ID when complete.
 [Decisions that need user/team input]
 
 ### Risk Register
-| Risk | Source | Mitigation |
-|------|--------|------------|
-| [Risk] | [Which agent flagged] | [Proposed mitigation] |
+risk_register[N]{risk,source,mitigation}:
+  [Risk],[Which agent flagged],[Proposed mitigation]
 
 ## Tensions & Tradeoffs
 [Document productive tensions between agent perspectives]
@@ -292,9 +287,8 @@ Return the note ID when complete.
 - reference [[agent-note-ids]]
 
 ## Cross-Pollination (if flags were processed)
-| Flag | From | To | Response Note | Resolution |
-|------|------|----|---------------|------------|
-| [concern] | [source] | [target] | [[response-note-id]] | [Addressed/Needs Review] |
+cross_pollination[N]{flag,from,to,response_note,resolution}:
+  [concern],[source],[target],[[response-note-id]],[Addressed/Needs Review]
 ```
 
 **Hub note metadata**:

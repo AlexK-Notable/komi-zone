@@ -51,10 +51,9 @@ Read the plan hub note AND all linked agent analysis notes. Extract:
 **Phases**: [N] phases identified
 
 ### Phase Breakdown
-| # | Phase | Description | Estimated Scope |
-|---|-------|-------------|-----------------|
-| 1 | [name] | [brief description] | [files/components affected] |
-| ... | ... | ... | ... |
+phases[N]{num,name,description,scope}:
+  1,[name],[brief description],[files/components affected]
+  ...
 
 ### Execution Mode
 How should phases proceed?
@@ -254,19 +253,16 @@ Create a zettelkasten note for this phase:
 **Gate Note**: [[gate-note-id]]
 
 ## Agent Outputs
-| Agent | Note | Status | Self-Assessment |
-|-------|------|--------|-----------------|
-| [agent] | [[note-id]] | [Complete/Partial] | [summary] |
+agent-outputs[N]{agent,note,status,self-assessment}:
+  [agent],[[note-id]],[Complete/Partial],[summary]
 
 ## Orchestrator Verification
-| # | Check | Agent Result | Orchestrator Result | Match? |
-|---|-------|-------------|--------------------|----|
-| 1 | [check] | [Pass/Fail] | [Pass/Fail] | [Yes/No] |
+orchestrator-checks[N]{num,check,agent-result,orchestrator-result,match}:
+  1,[check],[Pass/Fail],[Pass/Fail],[Yes/No]
 
 ## Files Changed (Aggregate)
-| File | Action | By Agent |
-|------|--------|----------|
-| [path] | [Created/Modified] | [agent] |
+files-changed[N]{file,action,by-agent}:
+  [path],[Created/Modified],[agent]
 
 ## Phase Summary
 [Brief narrative: what was accomplished, any issues encountered]
@@ -314,31 +310,29 @@ Create a zettelkasten note for this phase:
 **Execution Mode**: [Continuous / Gated / Adaptive]
 
 ## Phase Summary
-| Phase | Status | Agents | Files Changed | Gate Result |
-|-------|--------|--------|---------------|-------------|
-| [name] | [Complete/Partial/Skipped] | [agents] | [count] | [Pass/Fail] |
+phase-summary[N]{phase,status,agents,files-changed,gate-result}:
+  [name],[Complete/Partial/Skipped],[agents],[count],[Pass/Fail]
 
 ## Linked Notes
-### Phase Records
-- Phase 1: [[phase-record-note-id]]
-- Phase 2: [[phase-record-note-id]]
+phase-records[N]{phase,note}:
+  Phase 1,[[phase-record-note-id]]
+  Phase 2,[[phase-record-note-id]]
 
-### Gate Notes
-- Phase 1 gate: [[gate-note-id]]
-- Phase 2 gate: [[gate-note-id]]
+gate-notes[N]{phase,note}:
+  Phase 1,[[gate-note-id]]
+  Phase 2,[[gate-note-id]]
 
-### Agent Phase Notes
-- [[feature-implementer-phase-1-note-id]]
-- [[test-scaffolder-phase-1-note-id]]
-- ...
+agent-phase-notes[N]{note}:
+  [[feature-implementer-phase-1-note-id]]
+  [[test-scaffolder-phase-1-note-id]]
+  ...
 
 ## Aggregate Changes
-| Metric | Count |
-|--------|-------|
-| Files created | [n] |
-| Files modified | [n] |
-| Tests added | [n] |
-| Total lines changed | [+/-] |
+aggregate-changes[N]{metric,count}:
+  Files created,[n]
+  Files modified,[n]
+  Tests added,[n]
+  Total lines changed,[+/-]
 
 ## Plan Deviations
 [Summary of any differences between plan and actual implementation]

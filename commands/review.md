@@ -43,11 +43,10 @@ You are orchestrating a multi-agent code review session. Your job is to assess w
 
 Based on your assessment, classify this review:
 
-| Level | Criteria | Reviewer Count | Review Depth |
-|-------|----------|----------------|--------------|
-| **Quick** | Single file or small change, narrow concern | 1-2 reviewers | Targeted review, focused findings |
-| **Standard** | Module or feature scope, multiple concerns | 2-4 reviewers | Full convergent review, severity scoring |
-| **Deep** | System-wide changes, architectural impact, security-sensitive | 4+ reviewers | Exhaustive analysis, cross-domain patterns, regression assessment |
+effort-level[3]{level,criteria,reviewer-count,review-depth}:
+  Quick,Single file or small change; narrow concern,1-2 reviewers,Targeted review; focused findings
+  Standard,Module or feature scope; multiple concerns,2-4 reviewers,Full convergent review; severity scoring
+  Deep,System-wide changes; architectural impact; security-sensitive,4+ reviewers,Exhaustive analysis; cross-domain patterns; regression assessment
 
 Include the classification in your plan presentation to the user.
 
@@ -57,16 +56,15 @@ Reference the **Agent Catalog** (agent-catalog.md) and select reviewers based on
 
 **For code review, consider:**
 
-| Agent | Consider When |
-|-------|---------------|
-| code-quality-reviewer | Almost always—core quality perspective |
-| code-detective | Checking for completeness, hidden debt |
-| code-simplifier | Polish pass, complexity reduction |
-| security-reviewer | Auth flows, data handling, user input |
-| performance-analyzer | Hot paths, algorithms, resource usage |
-| test-strategist | Test coverage concerns, brittle tests |
-| dependency-auditor | New/updated dependencies |
-| api-designer | API changes, contract review |
+reviewer-candidate[8]{agent,consider-when}:
+  code-quality-reviewer,Almost always—core quality perspective
+  code-detective,Checking for completeness; hidden debt
+  code-simplifier,Polish pass; complexity reduction
+  security-reviewer,Auth flows; data handling; user input
+  performance-analyzer,Hot paths; algorithms; resource usage
+  test-strategist,Test coverage concerns; brittle tests
+  dependency-auditor,New/updated dependencies
+  api-designer,API changes; contract review
 
 **Selection guidelines:**
 - 2-4 reviewers is typical
@@ -85,10 +83,9 @@ Before proceeding, present your proposed approach:
 **Code Characteristics**: [What you noticed about the code]
 
 **Proposed Review Team**:
-| Reviewer | Focus Area |
-|----------|------------|
-| [agent] | [what they'll examine] |
-| ... | ... |
+review-team[N]{reviewer,focus-area}:
+  [agent],[what they'll examine]
+  ...
 
 **Review Type**: [Initial / Polish / Targeted / Security-focused]
 
@@ -207,10 +204,9 @@ Check each reviewer's note for "Flags for Investigation" section.
 **Review Summary**: [Brief overview - overall health, critical issues found]
 
 **Flags Requiring Follow-up**:
-| From | For | What to Investigate | Priority |
-|------|-----|---------------------|----------|
-| code-detective | test-strategist | "[specific concern]" | [Priority] |
-| security-reviewer | performance-analyzer | "[specific concern]" | [Priority] |
+flag[N]{from,for,what-to-investigate,priority}:
+  code-detective,test-strategist,"[specific concern]",[Priority]
+  security-reviewer,performance-analyzer,"[specific concern]",[Priority]
 
 **Options**:
 - Proceed with all flags (before synthesis)
@@ -274,9 +270,8 @@ Return the note ID when complete.
 
 ## Reviewer Analysis Summary
 
-| Reviewer | Focus | Severity | Key Findings | Note |
-|----------|-------|----------|--------------|------|
-| [agent] | [focus] | [Critical/High/Medium/Low] | [Top issues] | reference [[note-id]] |
+reviewer-summary[N]{reviewer,focus,severity,key-findings,note}:
+  [agent],[focus],[Critical/High/Medium/Low],[Top issues],reference [[note-id]]
 
 ## Critical Issues
 [Issues that must be addressed]
@@ -290,9 +285,8 @@ Return the note ID when complete.
 ## Convergent Findings
 [Issues identified by multiple reviewers]
 
-| Finding | Flagged By | Resolution |
-|---------|------------|------------|
-| [Issue] | [Reviewer list] | [Brief resolution] |
+convergent-finding[N]{finding,flagged-by,resolution}:
+  [Issue],[Reviewer list],[Brief resolution]
 
 ## Issue Tracker
 
@@ -312,9 +306,8 @@ Return the note ID when complete.
 - reference [[reviewer-note-ids]]
 
 ## Cross-Pollination (if flags were processed)
-| Flag | From | To | Response Note | Resolution |
-|------|------|----|---------------|------------|
-| [concern] | [source] | [target] | [[response-note-id]] | [Addressed/Needs Review] |
+cross-pollination[N]{flag,from,to,response-note,resolution}:
+  [concern],[source],[target],[[response-note-id]],[Addressed/Needs Review]
 ```
 
 **Hub note metadata**:

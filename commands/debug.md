@@ -46,11 +46,10 @@ You are orchestrating a multi-agent debugging session. Your job is to characteri
 
 Based on your assessment, classify this investigation:
 
-| Level | Criteria | Investigator Count | Investigation Depth |
-|-------|----------|-------------------|---------------------|
-| **Quick** | Reproducible bug, narrow scope, likely single cause | 1-2 investigators | Targeted investigation, direct fix |
-| **Standard** | Intermittent or multi-component, several hypotheses | 2-3 investigators | Systematic investigation, hypothesis testing |
-| **Deep** | Systemic issue, multiple possible root causes, architectural implications | 3+ investigators | Exhaustive analysis, cross-domain exploration, prevention measures |
+effort-levels[3]{Level,Criteria,Investigator Count,Investigation Depth}:
+  **Quick**,Reproducible bug; narrow scope; likely single cause,1-2 investigators,Targeted investigation; direct fix
+  **Standard**,Intermittent or multi-component; several hypotheses,2-3 investigators,Systematic investigation; hypothesis testing
+  **Deep**,Systemic issue; multiple possible root causes; architectural implications,3+ investigators,Exhaustive analysis; cross-domain exploration; prevention measures
 
 Include the classification in your plan presentation to the user.
 
@@ -60,15 +59,14 @@ Reference the **Agent Catalog** (agent-catalog.md) and select investigators base
 
 **For debugging, consider:**
 
-| Agent | Consider When |
-|-------|---------------|
-| systematic-debugger | Almost always—rigorous methodology is valuable |
-| lateral-debugger | Bug defies explanation, conventional approaches failed |
-| docs-investigator | Might be documented behavior, library issue |
-| test-strategist | Want regression tests, test gaps enabled bug |
-| performance-analyzer | Performance-related symptoms |
-| code-detective | Suspect incomplete implementation, hidden issues |
-| security-reviewer | Security-related symptoms |
+agents[7]{Agent,Consider When}:
+  systematic-debugger,Almost always—rigorous methodology is valuable
+  lateral-debugger,Bug defies explanation; conventional approaches failed
+  docs-investigator,Might be documented behavior; library issue
+  test-strategist,Want regression tests; test gaps enabled bug
+  performance-analyzer,Performance-related symptoms
+  code-detective,Suspect incomplete implementation; hidden issues
+  security-reviewer,Security-related symptoms
 
 **Selection guidelines:**
 - 2-3 investigators is typical for debugging
@@ -89,10 +87,9 @@ Before proceeding, present your proposed approach:
 - Reproducibility: [conditions]
 
 **Proposed Investigation Team**:
-| Investigator | Approach |
-|--------------|----------|
-| [agent] | [what they'll investigate] |
-| ... | ... |
+team[N]{Investigator,Approach}:
+  [agent],[what they'll investigate]
+  ...,...
 
 **Why This Team**: [Brief reasoning]
 
@@ -215,10 +212,9 @@ Check each investigator's note for "Flags for Investigation" section.
 **Investigation Summary**: [Root cause hypothesis and confidence]
 
 **Flags Requiring Follow-up**:
-| From | For | What to Investigate | Priority |
-|------|-----|---------------------|----------|
-| systematic-debugger | test-strategist | "[e.g., needs regression test for this bug class]" | [Priority] |
-| lateral-debugger | security-reviewer | "[e.g., edge case might have security implications]" | [Priority] |
+flags[N]{From,For,What to Investigate,Priority}:
+  systematic-debugger,test-strategist,"[e.g.; needs regression test for this bug class]",[Priority]
+  lateral-debugger,security-reviewer,"[e.g.; edge case might have security implications]",[Priority]
 
 **Options**:
 - Proceed with all flags (before creating hub note)
@@ -252,9 +248,8 @@ For each approved flag, deploy the target agent with the Response Note format.
 
 ## Investigation Summary
 
-| Investigator | Approach | Key Finding | Note |
-|--------------|----------|-------------|------|
-| [agent] | [approach] | [Key insight] | reference [[note-id]] |
+investigation[N]{Investigator,Approach,Key Finding,Note}:
+  [agent],[approach],[Key insight],reference [[note-id]]
 
 ## Root Cause Analysis
 
@@ -296,9 +291,8 @@ For each approved flag, deploy the target agent with the Response Note format.
 - related [[prior-similar-bug]] (if found)
 
 ## Cross-Pollination (if flags were processed)
-| Flag | From | To | Response Note | Resolution |
-|------|------|----|---------------|------------|
-| [concern] | [source] | [target] | [[response-note-id]] | [Addressed/Needs Review] |
+cross-pollination[N]{Flag,From,To,Response Note,Resolution}:
+  [concern],[source],[target],[[response-note-id]],[Addressed/Needs Review]
 ```
 
 **Hub note metadata**:
