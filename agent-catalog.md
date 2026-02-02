@@ -53,6 +53,15 @@ This catalog describes all available agents for znote workflows. Use this to sel
 | **e2e-specialist** | System-level and integration testing; real dependencies | E2E test design, integration verification |
 | **regression-hunter** | Identifies tests needed after changes; prevents regressions | Change impact analysis, regression prevention |
 
+### Implementation
+*For plan-driven code implementation with verification gates*
+
+| Agent | Purpose | Good For |
+|-------|---------|----------|
+| **gate-keeper** | Defines deterministic, runnable verification criteria for each phase before code is written | Acceptance criteria, quality gates, regression guards |
+| **feature-implementer** | Primary code-writing agent; implements plan phases, self-validates against gate checks | Production code, feature implementation, phased development |
+| **test-scaffolder** | Writes behavioral tests for plan phases; can run in parallel with feature-implementer | Test-first development, parallel test writing, behavioral testing |
+
 ### Debugging
 *For problem investigation and root cause analysis*
 
@@ -125,6 +134,16 @@ Planning typically benefits from:
 - test-strategist (when planning includes test coverage)
 - api-designer (when designing APIs)
 - migration-specialist (when planning upgrades/migrations)
+
+### /znote:implement
+**Suggested:** Implementation, Testing
+
+Implementation typically benefits from:
+- gate-keeper (always — defines verification gates before code is written)
+- feature-implementer (always — primary code-writing agent)
+- test-scaffolder (when phase includes test requirements — runs in parallel with feature-implementer)
+
+**Orchestrator guidance**: Phases execute sequentially; parallelism happens WITHIN phases. Gate-keeper runs once for ALL phases before implementation begins. After each phase, run gate checks independently — do not rely solely on agent self-reporting.
 
 ### /znote:review
 **Suggested:** Code Quality, Security & Performance, Testing
@@ -204,6 +223,8 @@ Some agents work well together:
 - **fact-finder + options-analyst**: Verified facts + comparison
 - **doc-auditor + doc-verifier**: Gap finding + accuracy checking
 - **policy-analyst + logic-extractor**: Parsing + formalization
+- **feature-implementer + test-scaffolder**: Code + tests in parallel
+- **gate-keeper + feature-implementer**: Independent verification + implementation
 
 ### Testing Agent Selection
 When test work is needed, consider the full testing pipeline:
