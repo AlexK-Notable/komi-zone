@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Zettelkasten workflows, specialized agents, and code intelligence tools",
-    "version": "2.1.0"
+    "version": "2.2.0"
   },
   "plugins": [
     {
@@ -15,7 +15,7 @@
         "url": "https://github.com/AlexK-Notable/komi-zone.git"
       },
       "description": "40 specialized agents, 7 slash commands, and bundled MCP servers (including serena for semantic code analysis) for zettelkasten-integrated development workflows",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "strict": true
     }
   ]
